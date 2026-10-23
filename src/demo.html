@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aurora Text · Interactive demo</title>
+    <style>
+      /* AURORA_CSS */
+      :root {
+        color-scheme: dark;
+        --background-primary: #151421;
+        --background-secondary: #201e30;
+        --text-normal: #eeecf8;
+        --text-muted: #b8b2cc;
+        --interactive-accent: #a28ce8;
+        --background-modifier-border: #3c3654;
+        --font-interface: system-ui;
+        --radius-m: 12px;
+        --radius-s: 6px;
+      }
+      body {
+        margin: 0;
+        padding: 32px;
+        font: 16px/1.6 system-ui;
+        background: var(--background-primary);
+        color: var(--text-normal);
+      }
+      body.light {
+        color-scheme: light;
+        --background-primary: #fcfaff;
+        --background-secondary: #f1ecf8;
+        --text-normal: #292237;
+        --text-muted: #655771;
+        --background-modifier-border: #d9cfe6;
+      }
+      main {
+        max-width: 1150px;
+        margin: auto;
+      }
+      header {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      h1 {
+        font-size: 24px;
+        margin-right: auto;
+      }
+      input,
+      select,
+      button,
+      textarea {
+        font: inherit;
+        color: inherit;
+        background: var(--background-secondary);
+        border: 1px solid var(--background-modifier-border);
+        border-radius: 8px;
+        padding: 8px;
+      }
+      textarea {
+        box-sizing: border-box;
+        width: 100%;
+        height: 85px;
+        margin: 15px 0;
+      }
+      button {
+        cursor: pointer;
+      }
+      .atx-panel {
+        padding: 12px;
+      }
+      .atx-card {
+        min-width: 0;
+      }
+      #output {
+        display: block;
+        white-space: pre-wrap;
+        padding: 16px;
+        overflow-wrap: anywhere;
+        border: 1px solid var(--background-modifier-border);
+        border-radius: 12px;
+      }
+      footer {
+        color: var(--text-muted);
+        font-size: 13px;
+        margin-top: 24px;
+      }
+      @media (max-width: 650px) {
+        body {
+          padding: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body class="theme-dark">
+    <main>
+      <header>
+        <h1>Aurora Text <small>1.5.0 · public beta</small></h1>
+        <label
+          >Language
+          <select id="language">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+          </select></label
+        ><button id="theme" type="button">Light / dark</button>
+      </header>
+      <p>
+        Local preview of the actual plugin palette. Edit the sample, hover a
+        preset, then apply to see the generated Markdown. This page does not
+        edit your vault.
+      </p>
+      <label for="text">Your sample text</label
+      ><textarea id="text">Let your words glow · Пусть слова сияют</textarea>
+      <div id="palette"></div>
+      <output id="output" aria-live="polite"
+        >Select a preset, then Apply.</output
+      >
+      <footer>
+        Original SVG wing assets and CSS included. No requests, external fonts
+        or analytics. Browser preview does not test Obsidian integration.
+      </footer>
+    </main>
+    <script>
+      /* AURORA_JS */
+      const holder = document.getElementById("palette"),
+        input = document.getElementById("text");
+      let ui;
+      function render() {
+        ui?.destroy();
+        AuroraI18n.setLanguage(document.getElementById("language").value);
+        ui = AuroraTextUI.create(holder, {
+          text: input.value || "Aurora",
+          onApply(style, mods) {
+            const text = input.value || "Aurora";
+            document.getElementById("output").textContent =
+              AuroraTextCore.build(
+                AuroraTextCore.target(text, 0, text.length),
+                style,
+                mods,
+              );
+          },
+          onCancel() {
+            document.getElementById("output").textContent =
+              "Preview only — nothing saved.";
+          },
+        });
+      }
+      input.addEventListener("input", render);
+      document.getElementById("language").addEventListener("change", render);
+      document.getElementById("theme").addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        document.body.classList.toggle("theme-dark");
+      });
+      render();
+    </script>
+  </body>
+</html>

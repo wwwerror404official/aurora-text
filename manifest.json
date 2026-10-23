@@ -1,0 +1,9 @@
+{
+  "id": "aurora-text",
+  "name": "Aurora Text",
+  "version": "1.5.0",
+  "minAppVersion": "1.14.5",
+  "description": "Style selected text with animated backgrounds, flowing letter colors and per-letter effects. Preview 42 presets in a compact menu or a full palette.",
+  "author": "Errora",
+  "isDesktopOnly": true
+}

@@ -1,0 +1,5261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aurora Text · Interactive demo</title>
+    <style>
+      /* Aurora Text 1.5.0 — original effects unchanged, wheel-scrolling picker. */
+/* Aurora Spans 1.0 | Obsidian | no external fonts, scripts or images.
+   Usage: <span class="Celestia">Текст</span>
+   Scoped to rendered spans; class names are case-sensitive.
+   Animation can be disabled per span with class="Celestia still".
+*/
+
+span:is(
+  .Celestia,
+  .Twilight,
+  .Collapse,
+  .TON618,
+  .TOB618,
+  .Rainbow,
+  .Fluttershy
+) {
+  --as-ink: #ffe3a3;
+  --as-a: #f5bb4d;
+  --as-b: #ef92c6;
+  --as-c: #92dbdc;
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  isolation: isolate;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0.09em 0.48em 0.14em;
+  margin: 0.06em 0.07em;
+  border: 1px solid transparent;
+  border-radius: 0.4em;
+  color: var(--as-ink);
+  font-weight: 600;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* CELESTIA — warm sun, pearly aurora, a slowly travelling halo. */
+span.Celestia {
+  color: #ffe7ab;
+  border-color: #e8bd636b;
+  background: linear-gradient(
+    112deg,
+    #292135,
+    #483221 42%,
+    #263840 74%,
+    #342439
+  );
+  text-shadow: 0 0 0.6em #ffd07085;
+  animation: as-sun 5s ease-in-out infinite;
+}
+span.Celestia::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 14%,
+    #f5a9ce30 30%,
+    #fff2b46b 47%,
+    #9ae5df38 63%,
+    transparent 80%
+  );
+  background-size: 260% 100%;
+  animation: as-aurora 7s ease-in-out infinite;
+  pointer-events: none;
+}
+span.Celestia::after {
+  content: "";
+  position: absolute;
+  width: 0.24em;
+  height: 0.24em;
+  border-radius: 50%;
+  background: #fff1b9;
+  box-shadow: 0 0 0.35em 0.07em #ffd87c;
+  top: -0.1em;
+  left: 12%;
+  animation: as-sun-travel 7s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes as-sun {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0.35em #f8c76525,
+      inset 0 0 0.45em #ffe2a312;
+  }
+  50% {
+    box-shadow:
+      0 0 0.8em #f8c76555,
+      inset 0 0 0.6em #ffe2a329;
+  }
+}
+@keyframes as-aurora {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes as-sun-travel {
+  0%,
+  100% {
+    left: 12%;
+    opacity: 0.3;
+  }
+  50% {
+    left: 87%;
+    opacity: 1;
+  }
+}
+
+/* TWILIGHT — violet field, magenta core, six-point magical star. */
+span.Twilight {
+  --as-ink: #f1d5ff;
+  border-color: #c56df47a;
+  background:
+    radial-gradient(ellipse at 50% 120%, #a12b8b75, transparent 75%), #291535;
+  text-shadow: 0 0 0.45em #d36bfb70;
+  animation: as-magic 4.5s ease-in-out infinite;
+}
+span.Twilight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 14% 28%, #ffe4ff 0 1px, transparent 1.6px),
+    radial-gradient(circle at 72% 68%, #ef9cfb 0 1px, transparent 1.8px),
+    radial-gradient(circle at 88% 23%, #fff 0 0.7px, transparent 1.5px),
+    linear-gradient(110deg, transparent 20%, #d95afa30 49%, transparent 75%);
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    250% 100%;
+  animation: as-aurora 5s ease-in-out infinite;
+  pointer-events: none;
+}
+span.Twilight::after {
+  content: "";
+  position: absolute;
+  top: -0.24em;
+  right: 0.22em;
+  width: 0.55em;
+  height: 0.55em;
+  background: #f9b5fa;
+  clip-path: polygon(
+    50% 0,
+    61% 32%,
+    93% 25%,
+    72% 50%,
+    93% 75%,
+    61% 68%,
+    50% 100%,
+    39% 68%,
+    7% 75%,
+    28% 50%,
+    7% 25%,
+    39% 32%
+  );
+  animation: as-star 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes as-magic {
+  0%,
+  100% {
+    box-shadow: 0 0 0.35em #bf54eb25;
+  }
+  50% {
+    box-shadow:
+      0 0 0.8em #bf54eb65,
+      inset 0 0 0.6em #f160d925;
+  }
+}
+@keyframes as-star {
+  0%,
+  100% {
+    transform: rotate(0) scale(0.72);
+    opacity: 0.55;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.08);
+    opacity: 1;
+  }
+}
+
+/* COLLAPSE — the field contracts while the text stays readable. */
+span.Collapse {
+  --as-ink: #e7eaff;
+  border-color: #8588c775;
+  background: #171823;
+  text-shadow: 0 0 0.4em #c6c8ff65;
+}
+span.Collapse::before,
+span.Collapse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+}
+span.Collapse::before {
+  background: radial-gradient(ellipse at center, #c2c0ff85, transparent 68%);
+  animation: as-collapse 4.8s cubic-bezier(0.6, 0.02, 0.3, 1) infinite;
+}
+span.Collapse::after {
+  border: 1px solid #c2bfff;
+  box-shadow:
+    0 0 0.6em #a09bff80,
+    inset 0 0 0.5em #a09bff40;
+  animation: as-collapse-ring 4.8s cubic-bezier(0.6, 0.02, 0.3, 1) infinite;
+}
+@keyframes as-collapse {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.15;
+  }
+  60% {
+    transform: scaleX(0.06);
+    opacity: 0.9;
+  }
+  74% {
+    transform: scaleX(0.03);
+    opacity: 1;
+  }
+  86% {
+    transform: scaleX(1);
+    opacity: 0.35;
+  }
+}
+@keyframes as-collapse-ring {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  70% {
+    transform: scale(0.12, 0.68);
+    opacity: 0.9;
+  }
+  85% {
+    transform: scale(1.04, 1.05);
+    opacity: 0.5;
+  }
+}
+
+/* TON 618 — dark centre and flowing amber accretion disc.
+   TOB618 is an alias for the spelling from the request. */
+span:is(.TON618, .TOB618) {
+  --as-ink: #ffe3bd;
+  background: #100e13;
+  border-color: #bc773e80;
+  text-shadow:
+    0 1px 3px #000,
+    0 0 0.45em #ffb05b50;
+  animation: as-horizon 6s ease-in-out infinite;
+}
+span:is(.TON618, .TOB618)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      ellipse at center,
+      #060509 0 21%,
+      #08060bd9 30%,
+      transparent 59%
+    ),
+    linear-gradient(
+      165deg,
+      transparent 27%,
+      #a9461765 38%,
+      #ffe1a8aa 47%,
+      #d9773260 55%,
+      transparent 70%
+    );
+  background-size:
+    100% 100%,
+    220% 180%;
+  animation: as-disc 8s ease-in-out infinite;
+  pointer-events: none;
+}
+span:is(.TON618, .TOB618)::after {
+  content: "";
+  position: absolute;
+  inset: 17% 12%;
+  border-radius: 50%;
+  border-top: 1px solid #ffc37e;
+  border-bottom: 1px solid #9b4e28;
+  box-shadow: 0 -0.12em 0.4em #f7a14750;
+  z-index: -1;
+  transform: rotate(-9deg);
+  animation: as-orbit 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes as-disc {
+  0%,
+  100% {
+    background-position:
+      center,
+      0% 30%;
+  }
+  50% {
+    background-position:
+      center,
+      100% 70%;
+  }
+}
+@keyframes as-horizon {
+  0%,
+  100% {
+    box-shadow: 0 0 0.3em #ed8c2520;
+  }
+  50% {
+    box-shadow: 0 0 0.7em #ed8c2550;
+  }
+}
+@keyframes as-orbit {
+  0%,
+  100% {
+    transform: rotate(-9deg) scaleX(0.92);
+    opacity: 0.55;
+  }
+  50% {
+    transform: rotate(7deg) scaleX(1.05);
+    opacity: 1;
+  }
+}
+
+/* RAINBOW — an animated pastel spectrum on a dark neutral base. */
+span.Rainbow {
+  --as-ink: #fff;
+  border-color: #dad5ff70;
+  background: linear-gradient(
+    110deg,
+    #6c344c,
+    #6d5133,
+    #556535,
+    #326559,
+    #354f76,
+    #5d3c78,
+    #6c344c
+  );
+  background-size: 350% 100%;
+  text-shadow: 0 1px 3px #0009;
+  animation: as-rainbow 10s linear infinite;
+}
+span.Rainbow::after {
+  content: "";
+  position: absolute;
+  inset: auto 0.25em 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    #ff9db9,
+    #ffdb91,
+    #e5f19e,
+    #a3edca,
+    #a5d4ff,
+    #d8afff,
+    #ff9db9
+  );
+  background-size: 300% 100%;
+  animation: as-rainbow 10s linear infinite reverse;
+  pointer-events: none;
+}
+@keyframes as-rainbow {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+/* FLUTTERSHY — pastel pink, tiny drifting petal silhouettes.
+   Two repeating layers use embedded SVG; no network resources. */
+span.Fluttershy {
+  --as-ink: #70384f;
+  border-color: #e6a5bd;
+  background: linear-gradient(115deg, #fff0f4, #f9dfe9 55%, #ffeff0);
+  text-shadow: 0 1px 0 #fff9;
+  animation: as-blossom 7s ease-in-out infinite;
+}
+span.Fluttershy::before,
+span.Fluttershy::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  background-repeat: repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='51' height='43' viewBox='0 0 51 43'%3E%3Cpath d='M9 7Q16 5 14 11Q12 16 9 7Z' fill='%23cc779c' fill-opacity='.48'/%3E%3Cpath d='M36 26Q42 28 37 33Q32 34 36 26Z' fill='%23dc94ae' fill-opacity='.6'/%3E%3C/svg%3E");
+  background-size: 51px 43px;
+  animation: as-petals 13s linear infinite;
+}
+span.Fluttershy::after {
+  opacity: 0.55;
+  background-size: 39px 35px;
+  animation: as-petals-small 19s linear infinite;
+}
+@keyframes as-petals {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 51px 86px;
+  }
+}
+@keyframes as-petals-small {
+  from {
+    background-position: 19px 12px;
+  }
+  to {
+    background-position: -20px 82px;
+  }
+}
+@keyframes as-blossom {
+  0%,
+  100% {
+    box-shadow: 0 0 0.3em #d48ba12a;
+  }
+  50% {
+    box-shadow: 0 0 0.7em #d48ba150;
+  }
+}
+
+/* Optional modifiers: combine ONE effect with these classes. */
+span:is(
+    .Celestia,
+    .Twilight,
+    .Collapse,
+    .TON618,
+    .TOB618,
+    .Rainbow,
+    .Fluttershy
+  ).name {
+  font-weight: 700;
+  letter-spacing: 0.035em;
+}
+span:is(
+    .Celestia,
+    .Twilight,
+    .Collapse,
+    .TON618,
+    .TOB618,
+    .Rainbow,
+    .Fluttershy
+  ).plain {
+  padding: 0.03em 0.18em;
+  margin-inline: 0;
+  border-color: transparent;
+}
+span:is(
+    .Celestia,
+    .Twilight,
+    .Collapse,
+    .TON618,
+    .TOB618,
+    .Rainbow,
+    .Fluttershy
+  ).still,
+span:is(
+    .Celestia,
+    .Twilight,
+    .Collapse,
+    .TON618,
+    .TOB618,
+    .Rainbow,
+    .Fluttershy
+  ).still::before,
+span:is(
+    .Celestia,
+    .Twilight,
+    .Collapse,
+    .TON618,
+    .TOB618,
+    .Rainbow,
+    .Fluttershy
+  ).still::after {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  span:is(
+    .Celestia,
+    .Twilight,
+    .Collapse,
+    .TON618,
+    .TOB618,
+    .Rainbow,
+    .Fluttershy
+  ),
+  span:is(
+      .Celestia,
+      .Twilight,
+      .Collapse,
+      .TON618,
+      .TOB618,
+      .Rainbow,
+      .Fluttershy
+    )::before,
+  span:is(
+      .Celestia,
+      .Twilight,
+      .Collapse,
+      .TON618,
+      .TOB618,
+      .Rainbow,
+      .Fluttershy
+    )::after {
+    animation: none;
+  }
+}
+@media print {
+  span:is(
+    .Celestia,
+    .Twilight,
+    .Collapse,
+    .TON618,
+    .TOB618,
+    .Rainbow,
+    .Fluttershy
+  ) {
+    color: #222;
+    background: #f4f1f5;
+    border-color: #aaa;
+    text-shadow: none;
+    box-shadow: none;
+    animation: none;
+  }
+  span:is(
+      .Celestia,
+      .Twilight,
+      .Collapse,
+      .TON618,
+      .TOB618,
+      .Rainbow,
+      .Fluttershy
+    )::before,
+  span:is(
+      .Celestia,
+      .Twilight,
+      .Collapse,
+      .TON618,
+      .TOB618,
+      .Rainbow,
+      .Fluttershy
+    )::after {
+    display: none;
+  }
+}
+
+/* Aurora Characters 1.0 — independent companion to Aurora Spans.
+   <span class="Luna">Text</span> | optional: name, plain, still
+   No changes to Celestia, Twilight, Collapse, TON618, Rainbow, Fluttershy.
+   All animation names are namespaced ac2-. No external resources. */
+span:is(
+  .Luna,
+  .SunsetShimmer,
+  .Rarity,
+  .RainbowDash,
+  .PinkiePie,
+  .Applejack,
+  .Discord,
+  .Tw,
+  .FlurryHeart,
+  .Sombra
+) {
+  --ac2-ink: #eee;
+  --ac2-edge: #ffffff40;
+  --ac2-glow: #ffffff25;
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  isolation: isolate;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0.09em 0.5em 0.14em;
+  margin: 0.06em 0.07em;
+  border: 1px solid var(--ac2-edge);
+  border-radius: 0.42em;
+  color: var(--ac2-ink);
+  font-weight: 600;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  text-shadow: 0 1px 2px #0005;
+}
+span:is(
+    .Luna,
+    .SunsetShimmer,
+    .Rarity,
+    .RainbowDash,
+    .PinkiePie,
+    .Applejack,
+    .Discord,
+    .Tw,
+    .FlurryHeart,
+    .Sombra
+  )::before,
+span:is(
+    .Luna,
+    .SunsetShimmer,
+    .Rarity,
+    .RainbowDash,
+    .PinkiePie,
+    .Applejack,
+    .Discord,
+    .Tw,
+    .FlurryHeart,
+    .Sombra
+  )::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  box-sizing: border-box;
+}
+/* LUNA — moonlit navy, silver stars, drifting night mist. */
+span.Luna {
+  --ac2-ink: #e1eaff;
+  --ac2-edge: #8c9ce087;
+  --ac2-glow: #6a82d646;
+  background: #101a38;
+  text-shadow: 0 0 0.45em #9cbbff70;
+  animation: ac2-lunar-breath 7s ease-in-out infinite;
+}
+span.Luna::before {
+  background:
+    radial-gradient(ellipse at 30% 80%, #6475bd66, transparent 66%),
+    linear-gradient(110deg, transparent 10%, #b2c6ff20 45%, transparent 80%);
+  background-size:
+    180% 160%,
+    250% 100%;
+  animation: ac2-night-mist 12s ease-in-out infinite;
+}
+span.Luna::after {
+  background:
+    radial-gradient(circle at 12% 26%, #e3eaff 0 0.8px, transparent 1.5px),
+    radial-gradient(circle at 34% 74%, #b7cbff 0 0.7px, transparent 1.3px),
+    radial-gradient(circle at 63% 19%, #fff 0 1px, transparent 1.7px),
+    radial-gradient(circle at 83% 63%, #b6c8ff 0 0.8px, transparent 1.5px),
+    radial-gradient(ellipse at 95% 0%, #d6e5ff55, transparent 29%);
+  animation: ac2-stars 5.5s ease-in-out infinite;
+}
+@keyframes ac2-lunar-breath {
+  0%,
+  100% {
+    box-shadow: 0 0 0.3em #6a82d620;
+  }
+  50% {
+    box-shadow: 0 0 0.8em #6a82d655;
+  }
+}
+@keyframes ac2-night-mist {
+  0%,
+  100% {
+    background-position:
+      0% 50%,
+      0% 50%;
+  }
+  50% {
+    background-position:
+      100% 50%,
+      100% 50%;
+  }
+}
+@keyframes ac2-stars {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+/* SUNSET SHIMMER — warm burgundy, sunset flame and rising embers. */
+span.SunsetShimmer {
+  --ac2-ink: #ffe5b3;
+  --ac2-edge: #ef9a598c;
+  background: linear-gradient(115deg, #49182e, #773528 65%, #4b2033);
+  animation: ac2-ember-glow 5s ease-in-out infinite;
+}
+span.SunsetShimmer::before {
+  background: linear-gradient(
+    115deg,
+    transparent 15%,
+    #ff902c35 33%,
+    #ffd48b65 49%,
+    #dc426c40 67%,
+    transparent 85%
+  );
+  background-size: 300% 100%;
+  animation: ac2-flow 7s ease-in-out infinite;
+}
+span.SunsetShimmer::after {
+  background-image:
+    radial-gradient(ellipse 1px 2px at 8px 15px, #ffdf99 70%, transparent),
+    radial-gradient(ellipse 1px 1.5px at 28px 34px, #ffba6d 70%, transparent);
+  background-size: 47px 53px;
+  animation: ac2-embers 9s linear infinite;
+  opacity: 0.75;
+}
+@keyframes ac2-ember-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0.3em #f0783020;
+  }
+  50% {
+    box-shadow:
+      0 0 0.75em #f0783055,
+      inset 0 -0.2em 0.6em #f0943025;
+  }
+}
+@keyframes ac2-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes ac2-embers {
+  from {
+    background-position: 0 53px;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+/* RARITY — pearl, amethyst facets and a diamond sparkle. */
+span.Rarity {
+  --ac2-ink: #503468;
+  --ac2-edge: #b7a1d3;
+  background: linear-gradient(120deg, #f8f5ff, #dfd3ef 55%, #f7f3fc);
+  text-shadow: 0 1px 0 #fff9;
+}
+span.Rarity::before {
+  background:
+    linear-gradient(
+      145deg,
+      transparent 30%,
+      #b8a2d34a 30% 49%,
+      transparent 49%
+    ),
+    linear-gradient(35deg, transparent 46%, #fff9 46% 59%, transparent 59%),
+    linear-gradient(110deg, transparent 25%, #ffffffd0 48%, transparent 70%);
+  background-size:
+    100% 100%,
+    100% 100%,
+    300% 100%;
+  animation: ac2-facets 8s ease-in-out infinite;
+}
+span.Rarity::after {
+  inset: -0.16em 0.15em auto auto;
+  width: 0.4em;
+  height: 0.55em;
+  background: #fff;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  animation: ac2-gem 4.5s ease-in-out infinite;
+}
+@keyframes ac2-facets {
+  0%,
+  100% {
+    background-position:
+      center,
+      center,
+      0% 50%;
+  }
+  50% {
+    background-position:
+      center,
+      center,
+      100% 50%;
+  }
+}
+@keyframes ac2-gem {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.65);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+/* RAINBOW DASH — blue sky, quick rainbow streaks, a brief lightning bolt. */
+span.RainbowDash {
+  --ac2-ink: #edfaff;
+  --ac2-edge: #79d5f7a0;
+  background: linear-gradient(115deg, #174b6e, #287b9a);
+}
+span.RainbowDash::before {
+  background: linear-gradient(
+    110deg,
+    transparent 22%,
+    #fc6b784a 31%,
+    #ffc66a65 37%,
+    #f6e87e65 43%,
+    #70e7b065 49%,
+    #78b9ff65 55%,
+    #b29aff65 61%,
+    transparent 73%
+  );
+  background-size: 350% 100%;
+  animation: ac2-dash 3.5s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+}
+span.RainbowDash::after {
+  inset: 0.1em 0.08em auto auto;
+  width: 0.45em;
+  height: 0.8em;
+  background: #fff2af;
+  clip-path: polygon(42% 0, 98% 0, 59% 42%, 92% 42%, 10% 100%, 34% 54%, 0 54%);
+  animation: ac2-lightning 7s linear infinite;
+}
+@keyframes ac2-dash {
+  0%,
+  20% {
+    background-position: 100% 50%;
+  }
+  75%,
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes ac2-lightning {
+  0%,
+  70%,
+  79%,
+  100% {
+    opacity: 0.08;
+  }
+  73%,
+  76% {
+    opacity: 1;
+  }
+}
+/* PINKIE PIE — candy pink, confetti and bouncing decorations, steady letters. */
+span.PinkiePie {
+  --ac2-ink: #fff1f7;
+  --ac2-edge: #ff91c1;
+  background: linear-gradient(110deg, #a33371, #853873);
+  animation: ac2-party-glow 5s ease-in-out infinite;
+}
+span.PinkiePie::before {
+  background-image:
+    linear-gradient(25deg, transparent 44%, #ffe497 45% 58%, transparent 59%),
+    linear-gradient(145deg, transparent 46%, #9ceaff 47% 58%, transparent 59%),
+    radial-gradient(circle at 4px 5px, #ffafdb 0 1.4px, transparent 2px);
+  background-size:
+    41px 37px,
+    57px 49px,
+    29px 43px;
+  background-repeat: repeat;
+  opacity: 0.55;
+  animation: ac2-confetti 12s linear infinite;
+}
+span.PinkiePie::after {
+  inset: auto 0.25em -0.08em auto;
+  width: 0.22em;
+  height: 0.22em;
+  border-radius: 50%;
+  background: #ffe38d;
+  box-shadow:
+    -0.45em -0.2em 0 #9ee9f7,
+    -0.8em 0.02em 0 #ffaad8;
+  animation: ac2-party-hop 3.5s ease-in-out infinite;
+}
+@keyframes ac2-confetti {
+  from {
+    background-position:
+      0 0,
+      0 0,
+      0 0;
+  }
+  to {
+    background-position:
+      41px 74px,
+      -57px 98px,
+      29px 86px;
+  }
+}
+@keyframes ac2-party-hop {
+  0%,
+  35%,
+  70%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.3em);
+  }
+}
+@keyframes ac2-party-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0.3em #ff70b020;
+  }
+  50% {
+    box-shadow: 0 0 0.65em #ff70b050;
+  }
+}
+/* APPLEJACK — honey, warm daylight and three tiny apple silhouettes. */
+span.Applejack {
+  --ac2-ink: #ffe9ba;
+  --ac2-edge: #dba85f;
+  background: linear-gradient(110deg, #664324, #805327 65%, #674025);
+}
+span.Applejack::before {
+  background: linear-gradient(
+    105deg,
+    transparent 15%,
+    #ffd9913d 47%,
+    transparent 78%
+  );
+  background-size: 280% 100%;
+  animation: ac2-flow 11s ease-in-out infinite;
+}
+span.Applejack::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='34' viewBox='0 0 64 34'%3E%3Cg fill='%23e58b69' fill-opacity='.5'%3E%3Cpath d='M7 10C3 6 1 12 4 15Q7 19 10 15C13 11 10 7 7 10Z'/%3E%3Cpath d='M31 24C27 20 25 26 28 29Q31 33 34 29C37 25 34 21 31 24Z'/%3E%3Cpath d='M52 9C48 5 46 11 49 14Q52 18 55 14C58 10 55 6 52 9Z'/%3E%3C/g%3E%3Cg stroke='%23c3d58c' stroke-width='1'%3E%3Cpath d='M7 10L8 6M31 24L32 20M52 9L53 5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 64px 34px;
+  animation: ac2-harvest 9s ease-in-out infinite;
+}
+@keyframes ac2-harvest {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+/* DISCORD — mismatched patches, opposing currents, an unstable outline. */
+span.Discord {
+  --ac2-ink: #fff0c9;
+  --ac2-edge: #c7a782;
+  background: linear-gradient(
+    125deg,
+    #644330 0 30%,
+    #453862 30% 60%,
+    #31564f 60%
+  );
+  animation: ac2-chaos-outline 11s ease-in-out infinite;
+}
+span.Discord::before {
+  background: repeating-linear-gradient(
+    115deg,
+    transparent 0 18px,
+    #e5cda333 18px 21px,
+    transparent 21px 39px
+  );
+  background-size: 140px 100%;
+  animation: ac2-chaos-forward 13s linear infinite;
+}
+span.Discord::after {
+  background: repeating-linear-gradient(
+    65deg,
+    transparent 0 29px,
+    #b8d6c52e 29px 32px,
+    transparent 32px 61px
+  );
+  background-size: 170px 100%;
+  animation: ac2-chaos-backward 17s linear infinite;
+}
+@keyframes ac2-chaos-outline {
+  0%,
+  100% {
+    border-radius: 0.15em 0.65em 0.25em 0.55em;
+    border-color: #c7a782;
+    box-shadow: -0.1em 0 0.35em #a085c325;
+  }
+  33% {
+    border-radius: 0.65em 0.2em 0.6em 0.15em;
+    border-color: #93c9ae;
+    box-shadow: 0.1em 0 0.4em #85c3ad40;
+  }
+  67% {
+    border-radius: 0.25em 0.5em 0.15em 0.7em;
+    border-color: #b4a1d8;
+    box-shadow: 0 0.08em 0.4em #c3978540;
+  }
+}
+@keyframes ac2-chaos-forward {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 140px 0;
+  }
+}
+@keyframes ac2-chaos-backward {
+  from {
+    background-position: 170px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+/* TW — graphite armour, blue-silver fractures and a restrained trident mark. */
+span.Tw {
+  --ac2-ink: #dcefff;
+  --ac2-edge: #7b9fb8b0;
+  background: linear-gradient(115deg, #141b24, #263343 55%, #17222e);
+  text-shadow: 0 0 0.45em #85c9ff55;
+  animation: ac2-tw-pulse 10s ease-in-out infinite;
+}
+span.Tw::before {
+  background:
+    linear-gradient(
+      124deg,
+      transparent 0 27%,
+      #b1dcff7a 27.3% 27.8%,
+      transparent 28.1% 100%
+    ),
+    linear-gradient(
+      58deg,
+      transparent 0 69%,
+      #7cc1ff70 69.3% 69.8%,
+      transparent 70.1% 100%
+    ),
+    linear-gradient(108deg, transparent 23%, #b5e5ff40 50%, transparent 76%);
+  background-size:
+    100% 100%,
+    100% 100%,
+    300% 100%;
+  animation: ac2-tw-current 10s ease-in-out infinite;
+}
+span.Tw::after {
+  inset: 0 0.12em 0 auto;
+  width: 0.65em;
+  background: center/contain no-repeat
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 36'%3E%3Cg fill='none' stroke='%23b9e3ff' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 32V4M7 7L10 3L13 7M4 9V15Q4 19 10 19Q16 19 16 15V9M2 12L4 8L6 12M14 12L16 8L18 12'/%3E%3C/g%3E%3C/svg%3E");
+  animation: ac2-trident 10s ease-in-out infinite;
+}
+@keyframes ac2-tw-pulse {
+  0%,
+  65%,
+  100% {
+    box-shadow:
+      0 0 0.28em #65b9ff20,
+      inset 0 0 0.3em #a2dbff08;
+  }
+  77% {
+    box-shadow:
+      0 0 0.85em #65b9ff70,
+      inset 0 0 0.5em #a2dbff25;
+  }
+  86% {
+    box-shadow: 0 0 0.4em #65b9ff30;
+  }
+}
+@keyframes ac2-tw-current {
+  0%,
+  65% {
+    opacity: 0.4;
+    background-position:
+      center,
+      center,
+      100% 50%;
+  }
+  80% {
+    opacity: 1;
+    background-position:
+      center,
+      center,
+      0% 50%;
+  }
+  100% {
+    opacity: 0.4;
+    background-position:
+      center,
+      center,
+      0% 50%;
+  }
+}
+@keyframes ac2-trident {
+  0%,
+  65%,
+  100% {
+    opacity: 0.18;
+  }
+  78% {
+    opacity: 0.7;
+  }
+}
+/* FLURRY HEART — frost, rose quartz and tiny drifting crystals. */
+span.FlurryHeart {
+  --ac2-ink: #4b4c79;
+  --ac2-edge: #afcddd;
+  background: linear-gradient(115deg, #dff4ff, #f8e1ef 58%, #e7efff);
+  text-shadow: 0 1px 0 #fff9;
+  animation: ac2-crystal-glow 6s ease-in-out infinite;
+}
+span.FlurryHeart::before {
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    #fff9 46%,
+    #a9d8ff4a 55%,
+    transparent 77%
+  );
+  background-size: 280% 100%;
+  animation: ac2-flow 9s ease-in-out infinite;
+}
+span.FlurryHeart::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='57' height='41' viewBox='0 0 57 41'%3E%3Cpath d='M9 4L12 9L9 14L6 9Z' fill='%237cafd8' fill-opacity='.55'/%3E%3Cpath d='M37 24L40 30L37 36L34 30Z' fill='%23d694be' fill-opacity='.58'/%3E%3Cpath d='M50 8L52 11L50 14L48 11Z' fill='%239d9ed5' fill-opacity='.45'/%3E%3C/svg%3E");
+  background-size: 57px 41px;
+  animation: ac2-crystals 17s linear infinite;
+}
+@keyframes ac2-crystals {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 57px -41px;
+  }
+}
+@keyframes ac2-crystal-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0.3em #9dc7ed25;
+  }
+  50% {
+    box-shadow: 0 0 0.65em #c2a3d755;
+  }
+}
+/* SOMBRA — obsidian, crimson, violet smoke, a passing emerald flare. */
+span.Sombra {
+  --ac2-ink: #f2dce5;
+  --ac2-edge: #a14d668c;
+  background: linear-gradient(120deg, #150d18, #30101b 60%, #15111d);
+  animation: ac2-shadow-breath 7s ease-in-out infinite;
+}
+span.Sombra::before {
+  background:
+    radial-gradient(ellipse at 30% 110%, #9654c770, transparent 68%),
+    radial-gradient(ellipse at 80% 10%, #6a2a8660, transparent 60%);
+  background-size:
+    180% 150%,
+    180% 150%;
+  animation: ac2-smoke 10s ease-in-out infinite;
+}
+span.Sombra::after {
+  background: linear-gradient(
+    105deg,
+    transparent 28%,
+    #72ff9d42 47%,
+    #c9ffb96b 50%,
+    transparent 64%
+  );
+  background-size: 350% 100%;
+  animation: ac2-emerald 9s ease-in-out infinite;
+}
+@keyframes ac2-smoke {
+  0%,
+  100% {
+    background-position:
+      0% 0%,
+      100% 100%;
+    opacity: 0.5;
+  }
+  50% {
+    background-position:
+      100% 100%,
+      0% 0%;
+    opacity: 0.95;
+  }
+}
+@keyframes ac2-emerald {
+  0%,
+  55% {
+    background-position: 100% 50%;
+    opacity: 0;
+  }
+  65% {
+    opacity: 0.85;
+  }
+  85%,
+  100% {
+    background-position: 0% 50%;
+    opacity: 0;
+  }
+}
+@keyframes ac2-shadow-breath {
+  0%,
+  100% {
+    box-shadow: 0 0 0.3em #7e334020;
+  }
+  50% {
+    box-shadow: 0 0 0.7em #8b3e6860;
+  }
+}
+/* Modifiers affect only this pack. Use one character class per span. */
+span:is(
+    .Luna,
+    .SunsetShimmer,
+    .Rarity,
+    .RainbowDash,
+    .PinkiePie,
+    .Applejack,
+    .Discord,
+    .Tw,
+    .FlurryHeart,
+    .Sombra
+  ).name {
+  font-weight: 700;
+  letter-spacing: 0.035em;
+}
+span:is(
+    .Luna,
+    .SunsetShimmer,
+    .Rarity,
+    .RainbowDash,
+    .PinkiePie,
+    .Applejack,
+    .Discord,
+    .Tw,
+    .FlurryHeart,
+    .Sombra
+  ).plain {
+  padding: 0.03em 0.18em;
+  margin-inline: 0;
+  border-color: transparent;
+}
+span:is(
+    .Luna,
+    .SunsetShimmer,
+    .Rarity,
+    .RainbowDash,
+    .PinkiePie,
+    .Applejack,
+    .Discord,
+    .Tw,
+    .FlurryHeart,
+    .Sombra
+  ).still,
+span:is(
+    .Luna,
+    .SunsetShimmer,
+    .Rarity,
+    .RainbowDash,
+    .PinkiePie,
+    .Applejack,
+    .Discord,
+    .Tw,
+    .FlurryHeart,
+    .Sombra
+  ).still::before,
+span:is(
+    .Luna,
+    .SunsetShimmer,
+    .Rarity,
+    .RainbowDash,
+    .PinkiePie,
+    .Applejack,
+    .Discord,
+    .Tw,
+    .FlurryHeart,
+    .Sombra
+  ).still::after {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  span:is(
+    .Luna,
+    .SunsetShimmer,
+    .Rarity,
+    .RainbowDash,
+    .PinkiePie,
+    .Applejack,
+    .Discord,
+    .Tw,
+    .FlurryHeart,
+    .Sombra
+  ),
+  span:is(
+      .Luna,
+      .SunsetShimmer,
+      .Rarity,
+      .RainbowDash,
+      .PinkiePie,
+      .Applejack,
+      .Discord,
+      .Tw,
+      .FlurryHeart,
+      .Sombra
+    )::before,
+  span:is(
+      .Luna,
+      .SunsetShimmer,
+      .Rarity,
+      .RainbowDash,
+      .PinkiePie,
+      .Applejack,
+      .Discord,
+      .Tw,
+      .FlurryHeart,
+      .Sombra
+    )::after {
+    animation: none;
+  }
+}
+@media print {
+  span:is(
+    .Luna,
+    .SunsetShimmer,
+    .Rarity,
+    .RainbowDash,
+    .PinkiePie,
+    .Applejack,
+    .Discord,
+    .Tw,
+    .FlurryHeart,
+    .Sombra
+  ) {
+    color: #222;
+    background: #f3f1f5;
+    border-color: #aaa;
+    text-shadow: none;
+    box-shadow: none;
+    animation: none;
+  }
+  span:is(
+      .Luna,
+      .SunsetShimmer,
+      .Rarity,
+      .RainbowDash,
+      .PinkiePie,
+      .Applejack,
+      .Discord,
+      .Tw,
+      .FlurryHeart,
+      .Sombra
+    )::before,
+  span:is(
+      .Luna,
+      .SunsetShimmer,
+      .Rarity,
+      .RainbowDash,
+      .PinkiePie,
+      .Applejack,
+      .Discord,
+      .Tw,
+      .FlurryHeart,
+      .Sombra
+    )::after {
+    display: none;
+  }
+}
+
+/* TwAwakened 1.0 — standalone companion. Existing styles are untouched.
+   Usage: <span class="TwAwakened">Text</span>
+   Two animated pseudo-elements. Only transform and opacity are animated.
+   Hair extends beyond the box without changing line height. */
+span.TwAwakened {
+  --twa-flow: 1;
+  --twa-hair-opacity: 0.32;
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  isolation: isolate;
+  overflow: visible;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0.12em 0.72em 0.16em;
+  margin: 0.12em 0.16em;
+  border: 1px solid #7aa6c9;
+  border-radius: 0.12em 0.42em 0.12em 0.42em;
+  color: #e0f3ff;
+  font-weight: 600;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  text-shadow:
+    0 1px 2px #0009,
+    0 0 0.35em #9bd4ff40;
+  box-shadow:
+    inset 0 0 0.55em #93cbff17,
+    0 0 0.45em #4a9bd92a;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2036%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M10%2033V4M7%207L10%203L13%207M4%209V15Q4%2019%2010%2019Q16%2019%2016%2015V9M2%2012L4%208L6%2012M14%2012L16%208L18%2012%22%20stroke%3D%22%23c5eaff%22%20stroke-opacity%3D%22.45%22%20stroke-width%3D%221.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E"),
+    linear-gradient(
+      122deg,
+      transparent 26%,
+      #8fc6ef66 26.3% 26.7%,
+      transparent 27%
+    ),
+    linear-gradient(
+      56deg,
+      transparent 71%,
+      #badffc70 71.3% 71.7%,
+      transparent 72%
+    ),
+    linear-gradient(115deg, #101721, #26374a 52%, #131f2c);
+  background-size:
+    0.6em 80%,
+    100% 100%,
+    100% 100%,
+    100% 100%;
+  background-position:
+    right 0.09em center,
+    center,
+    center,
+    center;
+  background-repeat: no-repeat;
+}
+span.TwAwakened::before,
+span.TwAwakened::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  border: 0;
+  box-sizing: border-box;
+}
+/* Left locks and detached crown shards share one composited decoration.
+   SVGs have fixed em widths: long text does not stretch the strands. */
+span.TwAwakened::before {
+  inset: -0.58em -0.64em -1.85em;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2068%2022%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M6%2016L1%205L12%2010L15%2018Z%22%20fill%3D%22%2391aac1%22%2F%3E%3Cpath%20d%3D%22M23%2015L21%201L28%205L30%2015Z%22%20fill%3D%22%23cee7f9%22%2F%3E%3Cpath%20d%3D%22M38%2015L42%201L47%204L45%2016Z%22%20fill%3D%22%239dc6e6%22%2F%3E%3Cpath%20d%3D%22M54%2018L57%209L67%205L63%2016Z%22%20fill%3D%22%23c8d7e6%22%2F%3E%3Cpath%20d%3D%22M19%2019L48%2019%22%20stroke%3D%22%237eb8e3%22%20stroke-opacity%3D%22.55%22%2F%3E%3C%2Fsvg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2046%20126%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M35%201C22%2019%2032%2036%2020%2054C11%2069%2022%2088%208%20119C32%2095%2020%2080%2032%2059C44%2038%2029%2024%2042%202Z%22%20fill%3D%22%2376b9e8%22%20fill-opacity%3D%22.48%22%2F%3E%3Cpath%20d%3D%22M21%209C7%2031%2017%2047%208%2067C0%2085%2010%2099%202%20123C20%20101%2012%2087%2020%2067C29%2047%2017%2030%2029%208Z%22%20fill%3D%22%23b1d4ee%22%20fill-opacity%3D%22.32%22%2F%3E%3Cpath%20d%3D%22M37%207C27%2026%2038%2039%2026%2060C15%2078%2026%2091%2012%20112M23%2016C12%2036%2022%2049%2013%2070C7%2085%2014%2097%206%20114%22%20stroke%3D%22%23d0ecff%22%20stroke-opacity%3D%22.65%22%20stroke-width%3D%221%22%2F%3E%3C%2Fsvg%3E");
+  background-size:
+    2.45em 0.78em,
+    1.02em calc(100% - 0.64em);
+  background-position:
+    50% 0,
+    left 0.03em top 0.64em;
+  background-repeat: no-repeat;
+  transform-origin: 50% 0.78em;
+  animation: twa-left-drift 10s ease-in-out infinite;
+}
+/* Right locks move on their own; the middle remains empty. */
+span.TwAwakened::after {
+  top: 0.06em;
+  bottom: -2.1em;
+  right: -0.69em;
+  width: 1.04em;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%20134%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M9%201C25%2020%2014%2039%2027%2061C38%2080%2026%2098%2040%20130C16%20104%2029%2085%2017%2064C4%2042%2020%2025%203%202Z%22%20fill%3D%22%2382c5f5%22%20fill-opacity%3D%22.48%22%2F%3E%3Cpath%20d%3D%22M24%208C40%2031%2028%2048%2038%2069C47%2087%2036%20102%2044%20122C25%20100%2036%2086%2027%2068C16%2048%2029%2030%2017%208Z%22%20fill%3D%22%23b6ddf8%22%20fill-opacity%3D%22.3%22%2F%3E%3Cpath%20d%3D%22M9%208C20%2027%209%2042%2022%2065C32%2083%2022%20100%2036%20120M24%2015C35%2035%2025%2050%2034%2071C42%2088%2032%20101%2040%20114%22%20stroke%3D%22%23d3eeff%22%20stroke-opacity%3D%22.65%22%20stroke-width%3D%221%22%2F%3E%3C%2Fsvg%3E")
+    center top / 100% 100% no-repeat;
+  transform-origin: 50% 0.35em;
+  animation: twa-right-drift 12s ease-in-out infinite;
+}
+@keyframes twa-left-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-0.6deg);
+    opacity: 0.62;
+  }
+  40% {
+    transform: translate3d(
+        calc(-0.035em * var(--twa-flow)),
+        calc(0.035em * var(--twa-flow)),
+        0
+      )
+      rotate(0.7deg);
+    opacity: 0.78;
+  }
+  65% {
+    opacity: 0.62;
+  }
+  78% {
+    opacity: 0.96;
+  }
+}
+@keyframes twa-right-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(1deg);
+    opacity: var(--twa-hair-opacity);
+  }
+  50% {
+    transform: translate3d(
+        calc(0.05em * var(--twa-flow)),
+        calc(0.06em * var(--twa-flow)),
+        0
+      )
+      rotate(-1.2deg);
+    opacity: calc(var(--twa-hair-opacity) + 0.12);
+  }
+}
+span.TwAwakened.name {
+  font-weight: 700;
+  letter-spacing: 0.035em;
+}
+/* Quiet reduces hair contrast. Short reduces how far the locks descend. */
+span.TwAwakened.quiet {
+  --twa-hair-opacity: 0.16;
+}
+span.TwAwakened.quiet::before {
+  animation-name: twa-left-quiet;
+}
+@keyframes twa-left-quiet {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-0.5deg);
+    opacity: 0.38;
+  }
+  50% {
+    transform: translate3d(-0.025em, 0.025em, 0) rotate(0.5deg);
+    opacity: 0.48;
+  }
+}
+span.TwAwakened.short::before {
+  bottom: -0.65em;
+}
+span.TwAwakened.short::after {
+  bottom: -0.85em;
+}
+span.TwAwakened.still::before,
+span.TwAwakened.still::after {
+  animation: none;
+}
+span.TwAwakened.still::before {
+  opacity: 0.62;
+}
+span.TwAwakened.still::after {
+  opacity: var(--twa-hair-opacity);
+}
+span.TwAwakened.quiet.still::before {
+  opacity: 0.38;
+}
+@media (prefers-reduced-motion: reduce) {
+  span.TwAwakened::before,
+  span.TwAwakened::after {
+    animation: none;
+  }
+  span.TwAwakened::before {
+    opacity: 0.62;
+  }
+  span.TwAwakened::after {
+    opacity: var(--twa-hair-opacity);
+  }
+  span.TwAwakened.quiet::before {
+    opacity: 0.38;
+  }
+}
+@media print {
+  span.TwAwakened {
+    color: #222;
+    background: #f0f3f6;
+    border-color: #8794a3;
+    text-shadow: none;
+    box-shadow: none;
+  }
+  span.TwAwakened::before,
+  span.TwAwakened::after {
+    display: none;
+  }
+}
+
+/* TRIO / INK 1.0.0 — Nightmare Moon · Daybreaker · Midnight Sparkle
+   Usage: <span class="Trio NightmareMoon">Text</span>
+   One Trio + one character class. Optional: name, still, slow.
+   Paint is clipped to glyphs. No plaques, pseudo-elements or outer glow. */
+span.Trio:is(.NightmareMoon, .Daybreaker, .MidnightSparkle) {
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: baseline;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  font-weight: 700;
+  line-height: inherit;
+  letter-spacing: 0.012em;
+  overflow-wrap: anywhere;
+  text-shadow: none;
+  box-shadow: none;
+  background: none;
+  color: var(--trio-fallback, #bca7e8);
+}
+span.Trio.NightmareMoon {
+  --trio-fallback: #91b9f4;
+  --trio-time: 14s;
+  --trio-n1: #799be4;
+  --trio-n2: #b8a6f4;
+  --trio-n3: #c9eeff;
+  --trio-n4: #6477c4;
+}
+span.Trio.Daybreaker {
+  --trio-fallback: #f3b45c;
+  --trio-time: 9s;
+  --trio-d1: #ee9149;
+  --trio-d2: #ffe0a0;
+  --trio-d3: #ffbc66;
+  --trio-d4: #dc7458;
+}
+span.Trio.MidnightSparkle {
+  --trio-fallback: #d6a0f5;
+  --trio-time: 11s;
+  --trio-m1: #ba8ff1;
+  --trio-m2: #8ee1e9;
+  --trio-m3: #e3acf5;
+  --trio-m4: #9a8ee5;
+}
+/* In light themes, the same moving textures use denser pigment.
+   This affects only these three classes, never the rest of the note. */
+.theme-light span.Trio.NightmareMoon {
+  --trio-fallback: #3c4f96;
+  --trio-n1: #263e85;
+  --trio-n2: #674aa5;
+  --trio-n3: #346b92;
+  --trio-n4: #3d397f;
+}
+.theme-light span.Trio.Daybreaker {
+  --trio-fallback: #a94c20;
+  --trio-d1: #a8421c;
+  --trio-d2: #9a6021;
+  --trio-d3: #b65c1f;
+  --trio-d4: #97332a;
+}
+.theme-light span.Trio.MidnightSparkle {
+  --trio-fallback: #7939a9;
+  --trio-m1: #7837ad;
+  --trio-m2: #146f81;
+  --trio-m3: #97329d;
+  --trio-m4: #4e439b;
+}
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  span.Trio:is(.NightmareMoon, .Daybreaker, .MidnightSparkle) {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-repeat: repeat;
+  }
+  /* Moonlit vapour, silver-blue pinpoints and a slow violet current. */
+  span.Trio.NightmareMoon {
+    background-image:
+      radial-gradient(
+        circle at 12px 8px,
+        var(--trio-n3) 0 0.8px,
+        transparent 1.7px
+      ),
+      radial-gradient(ellipse at 34% 54%, var(--trio-n3) 0%, transparent 54%),
+      linear-gradient(
+        115deg,
+        transparent 25%,
+        var(--trio-n2) 48%,
+        transparent 74%
+      ),
+      linear-gradient(
+        105deg,
+        var(--trio-n1),
+        var(--trio-n4) 35%,
+        var(--trio-n2) 65%,
+        var(--trio-n1)
+      );
+    background-size:
+      47px 31px,
+      170% 160%,
+      260% 100%,
+      220% 100%;
+    background-position:
+      0 0,
+      0% 55%,
+      0% 50%,
+      0% 50%;
+    animation: trio-ink-night var(--trio-time) ease-in-out infinite;
+  }
+  /* Slanting tongues of flame travel upward through the letterforms. */
+  span.Trio.Daybreaker {
+    background-image:
+      radial-gradient(
+        ellipse at 45% 100%,
+        var(--trio-d2) 0 9%,
+        transparent 59%
+      ),
+      repeating-linear-gradient(
+        112deg,
+        transparent 0 17px,
+        var(--trio-d3) 24px,
+        transparent 32px 56px
+      ),
+      linear-gradient(
+        100deg,
+        var(--trio-d4),
+        var(--trio-d1) 24%,
+        var(--trio-d2) 49%,
+        var(--trio-d3) 68%,
+        var(--trio-d4)
+      );
+    background-size:
+      73px 135px,
+      160px 170px,
+      260% 100%;
+    background-position:
+      0 0,
+      0 0,
+      0% 50%;
+    animation: trio-ink-sun var(--trio-time) linear infinite;
+  }
+  /* Turquoise arcane rings cross an amethyst and magenta current. */
+  span.Trio.MidnightSparkle {
+    background-image:
+      repeating-radial-gradient(
+        ellipse at center,
+        transparent 0 20px,
+        var(--trio-m2) 21px 22px,
+        transparent 25px 46px
+      ),
+      linear-gradient(
+        118deg,
+        transparent 25%,
+        var(--trio-m3) 48%,
+        transparent 73%
+      ),
+      linear-gradient(
+        105deg,
+        var(--trio-m1),
+        var(--trio-m4) 24%,
+        var(--trio-m2) 49%,
+        var(--trio-m3) 72%,
+        var(--trio-m1)
+      );
+    background-size:
+      230px 145px,
+      300% 100%,
+      240% 100%;
+    background-position:
+      0 0,
+      0% 50%,
+      0% 50%;
+    animation: trio-ink-midnight var(--trio-time) ease-in-out infinite;
+  }
+}
+@keyframes trio-ink-night {
+  0%,
+  100% {
+    background-position:
+      0 0,
+      0% 55%,
+      0% 50%,
+      0% 50%;
+  }
+  50% {
+    background-position:
+      23.5px -15.5px,
+      100% 45%,
+      100% 50%,
+      100% 50%;
+  }
+}
+@keyframes trio-ink-sun {
+  from {
+    background-position:
+      0 135px,
+      0 170px,
+      0% 50%;
+  }
+  to {
+    background-position:
+      73px 0,
+      160px 0,
+      100% 50%;
+  }
+}
+@keyframes trio-ink-midnight {
+  0%,
+  100% {
+    background-position:
+      0 0,
+      0% 50%,
+      0% 50%;
+  }
+  50% {
+    background-position:
+      46px -24px,
+      100% 50%,
+      100% 50%;
+  }
+}
+span.Trio:is(.NightmareMoon, .Daybreaker, .MidnightSparkle).name {
+  font-weight: 800;
+  letter-spacing: 0.045em;
+}
+span.Trio:is(.NightmareMoon, .Daybreaker, .MidnightSparkle).slow {
+  animation-duration: calc(var(--trio-time) * 1.75);
+}
+span.Trio:is(.NightmareMoon, .Daybreaker, .MidnightSparkle).still {
+  animation: none;
+}
+span.Trio:is(.NightmareMoon, .Daybreaker, .MidnightSparkle)::selection {
+  color: HighlightText;
+  -webkit-text-fill-color: HighlightText;
+  background: Highlight;
+}
+@media (prefers-reduced-motion: reduce) {
+  span.Trio:is(.NightmareMoon, .Daybreaker, .MidnightSparkle) {
+    animation: none;
+  }
+}
+@media print {
+  span.Trio:is(.NightmareMoon, .Daybreaker, .MidnightSparkle) {
+    color: #222;
+    -webkit-text-fill-color: #222;
+    background: none;
+    animation: none;
+  }
+}
+@media (forced-colors: active) {
+  span.Trio:is(.NightmareMoon, .Daybreaker, .MidnightSparkle) {
+    color: CanvasText;
+    -webkit-text-fill-color: CanvasText;
+    background: none;
+    animation: none;
+  }
+}
+
+/* Aurora Text 1.1 — White Gold · Tenderness · Speed */
+span:is(.WhiteGold, .Tenderness, .Speed) {
+  display: inline-block;
+  position: relative;
+  isolation: isolate;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  max-width: 100%;
+  font-weight: 650;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  margin: 0.04em 0.05em;
+}
+/* Pale letterforms, static gilded contour, fine gold filaments in the glyphs. */
+span.WhiteGold {
+  --awg-white: #fffef5;
+  --awg-gold: #d2a950;
+  color: var(--awg-white);
+  padding: 0 0.06em;
+  background: none;
+  text-shadow:
+    0 0 0.9px #d5af60,
+    0 0 5px #dfbc7650;
+}
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  span.WhiteGold {
+    background-image:
+      repeating-linear-gradient(
+        116deg,
+        transparent 0 23px,
+        var(--awg-gold) 24px 24.7px,
+        transparent 25.5px 59px
+      ),
+      linear-gradient(105deg, var(--awg-white), #f8f1d9 45%, var(--awg-white));
+    background-size:
+      130px 90px,
+      100% 100%;
+    background-repeat: repeat;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-stroke: 0.25px #c6a35d;
+    animation: atx-gold-thread 18s linear infinite;
+  }
+}
+@keyframes atx-gold-thread {
+  from {
+    background-position:
+      0 0,
+      center;
+  }
+  to {
+    background-position:
+      130px -90px,
+      center;
+  }
+}
+.theme-light span.WhiteGold {
+  --awg-white: #fffef5;
+  --awg-gold: #b08635;
+  -webkit-text-stroke: 0.55px #9f7b33;
+  text-shadow:
+    0 0 1px #9f7b3370,
+    0 1px 2px #a0803c30;
+}
+/* Softer Fluttershy: airy pink, creamy warmth, slowly drifting tiny petals. */
+span.Tenderness {
+  padding: 0.08em 0.45em 0.13em;
+  color: #754656;
+  background: linear-gradient(115deg, #fff5f6, #fceaf0 55%, #fff8e9);
+  border: 1px solid #efd5dc;
+  border-radius: 0.65em;
+  text-shadow: 0 1px 0 #fffc;
+  box-shadow: 0 0 0.5em #f3ccdb30;
+}
+span.Tenderness::before,
+span.Tenderness::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  background-repeat: repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 61 43' width='61' height='43'%3E%3Cpath d='M11 6Q17 5 15 10Q13 14 11 6Z' fill='%23dba9bc' fill-opacity='.48'/%3E%3Cpath d='M42 28Q47 29 43 33Q39 34 42 28Z' fill='%23ebc1cf' fill-opacity='.55'/%3E%3C/svg%3E");
+  background-size: 61px 43px;
+  animation: atx-soft-petals 23s linear infinite;
+}
+span.Tenderness::after {
+  background-size: 43px 37px;
+  opacity: 0.4;
+  animation: atx-soft-petals-far 31s linear infinite;
+}
+@keyframes atx-soft-petals {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 61px 43px;
+  }
+}
+@keyframes atx-soft-petals-far {
+  from {
+    background-position: 21px 0;
+  }
+  to {
+    background-position: -22px 37px;
+  }
+}
+/* Speed: static directional shadows simulate a motion trail.
+   Only transform animates; no filter, no animated blur, no per-letter elements. */
+span.Speed {
+  color: #f2fcff;
+  padding: 0.06em 0.42em 0.12em;
+  border: 1px solid #7ec5e7a0;
+  border-radius: 0.2em 0.5em 0.2em 0.5em;
+  background: linear-gradient(115deg, #1b5373, #386797 50%, #66558d);
+  text-shadow:
+    -0.04em 0 #a1e9ff95,
+    -0.11em 0 #8bdcf044,
+    -0.19em 0 #bba2f426;
+  box-shadow: inset 0.16em 0 0 #f0b78b45;
+  animation: atx-speed 1.6s linear infinite;
+}
+@keyframes atx-speed {
+  0%,
+  26%,
+  52%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  28%,
+  36%,
+  44% {
+    transform: translate3d(0.32px, -0.14px, 0);
+  }
+  32%,
+  40%,
+  48% {
+    transform: translate3d(-0.32px, 0.14px, 0);
+  }
+}
+span:is(.WhiteGold, .Tenderness, .Speed).name {
+  font-weight: 800;
+  letter-spacing: 0.035em;
+}
+span:is(.WhiteGold, .Tenderness, .Speed).slow {
+  animation-duration: 30s;
+}
+span:is(.WhiteGold, .Tenderness, .Speed).plain {
+  padding: 0.02em 0.14em;
+  margin-inline: 0;
+  border-color: transparent;
+}
+span:is(.WhiteGold, .Tenderness, .Speed).still,
+span:is(.WhiteGold, .Tenderness, .Speed).still::before,
+span:is(.WhiteGold, .Tenderness, .Speed).still::after {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  span:is(.WhiteGold, .Tenderness, .Speed),
+  span:is(.WhiteGold, .Tenderness, .Speed)::before,
+  span:is(.WhiteGold, .Tenderness, .Speed)::after {
+    animation: none;
+  }
+}
+@media print {
+  span:is(.WhiteGold, .Tenderness, .Speed) {
+    color: #222;
+    -webkit-text-fill-color: #222;
+    -webkit-text-stroke: 0;
+    background: none;
+    border-color: #aaa;
+    box-shadow: none;
+    text-shadow: none;
+    animation: none;
+  }
+  span.Tenderness::before,
+  span.Tenderness::after {
+    display: none;
+  }
+}
+@media (forced-colors: active) {
+  span:is(.WhiteGold, .Tenderness, .Speed) {
+    color: CanvasText;
+    -webkit-text-fill-color: CanvasText;
+    -webkit-text-stroke: 0;
+    background: none;
+    box-shadow: none;
+    text-shadow: none;
+    animation: none;
+  }
+  span.Tenderness::before,
+  span.Tenderness::after {
+    display: none;
+  }
+}
+
+/* Aurora Text 1.2 — eight original palettes. No external assets or filters. */
+span:is(
+  .AtxBorealis,
+  .AtxMercury,
+  .AtxRoseQuartz,
+  .AtxDeepOcean,
+  .AtxStarSilk,
+  .AtxEmberInk,
+  .AtxHologram,
+  .AtxMosslight
+) {
+  display: inline-block;
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  max-width: 100%;
+  vertical-align: baseline;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  font-weight: 650;
+  text-decoration: none;
+}
+span.AtxBorealis {
+  color: #e2fff6;
+  padding: 0.08em 0.44em 0.12em;
+  margin: 0.04em 0.05em;
+  border: 1px solid #7bcbbd85;
+  border-radius: 0.4em;
+  background: linear-gradient(115deg, #174341, #344a66, #543a68, #174341);
+  background-size: 320% 100%;
+  text-shadow: 0 0 0.3em #b8ffdc40;
+  animation: atx-author-flow 17s ease-in-out infinite;
+}
+span.AtxBorealis::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    100deg,
+    transparent 0 16px,
+    #b5f6da26 20px 24px,
+    transparent 40px 65px
+  );
+  background-size: 160% 100%;
+  animation: atx-author-flow 21s ease-in-out infinite;
+}
+span.AtxMercury {
+  --am1: #f4f7ff;
+  --am2: #9eaac7;
+  --am3: #d6efff;
+  color: #dce8fa;
+  font-weight: 750;
+  padding: 0 0.04em;
+  text-shadow: none;
+}
+span.AtxRoseQuartz {
+  color: #623950;
+  padding: 0.08em 0.43em 0.12em;
+  margin: 0.04em 0.05em;
+  border: 1px solid #e1aecb;
+  border-radius: 0.24em 0.65em 0.24em 0.65em;
+  background: linear-gradient(
+    135deg,
+    #fff0f5,
+    #edcadf 35%,
+    #f8e5f2 60%,
+    #efd6e7
+  );
+  text-shadow: 0 1px 0 #fff9;
+}
+span.AtxRoseQuartz::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    140deg,
+    transparent 35%,
+    #fff7 35% 44%,
+    transparent 44% 68%,
+    #b879a326 68% 78%,
+    transparent 78%
+  );
+  opacity: 0.5;
+  animation: atx-author-crystal 8s ease-in-out infinite;
+}
+span.AtxDeepOcean {
+  color: #cceff5;
+  padding: 0.08em 0.44em 0.12em;
+  margin: 0.04em 0.05em;
+  border: 1px solid #65a4ba88;
+  border-radius: 0.4em;
+  background:
+    radial-gradient(ellipse at 20% 120%, #337e8e99, transparent 65%),
+    linear-gradient(120deg, #102d44, #1d4f64 50%, #152a4c);
+  background-size:
+    220% 160%,
+    180% 100%;
+  animation: atx-author-tide 15s ease-in-out infinite;
+}
+span.AtxDeepOcean::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 9px 11px,
+    #c0f5ef 0 0.7px,
+    transparent 1.4px
+  );
+  background-size: 51px 39px;
+  opacity: 0.35;
+  animation: atx-author-plankton 22s linear infinite;
+}
+span.AtxStarSilk {
+  --as1: #ddd2ff;
+  --as2: #b8d5f5;
+  --as3: #fff0da;
+  color: #d7d5ff;
+  font-weight: 700;
+  padding: 0 0.04em;
+  text-shadow: none;
+}
+span.AtxEmberInk {
+  --ae1: #f0ad81;
+  --ae2: #ffd9ae;
+  --ae3: #e58a92;
+  color: #edb090;
+  font-weight: 750;
+  padding: 0 0.04em;
+  text-shadow: none;
+}
+span.AtxHologram {
+  color: #d8faff;
+  padding: 0.05em 0.4em 0.1em;
+  margin: 0.04em 0.05em;
+  border: 1px solid #85cddc8c;
+  border-radius: 0.15em;
+  background: repeating-linear-gradient(0deg, #153b4b 0 3px, #1c4756 3px 4px);
+  text-shadow:
+    0.035em 0 #cba7ec70,
+    -0.035em 0 #82e2dd70;
+}
+span.AtxHologram::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    0deg,
+    transparent 10%,
+    #c5fff82b 50%,
+    transparent 85%
+  );
+  transform-origin: center;
+  animation: atx-author-scan 7s ease-in-out infinite;
+}
+span.AtxMosslight {
+  color: #e4edc9;
+  padding: 0.08em 0.44em 0.12em;
+  margin: 0.04em 0.05em;
+  border: 1px solid #9fb27180;
+  border-radius: 0.65em 0.24em 0.65em 0.24em;
+  background: linear-gradient(110deg, #2b4535, #4a5a35 50%, #2d4840);
+  box-shadow: inset 0 0 0.3em #d9e49c16;
+}
+span.AtxMosslight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 14% 28%, #f0edb8 0 1px, transparent 2.2px),
+    radial-gradient(circle at 78% 68%, #cde69e 0 1px, transparent 2px);
+  animation: atx-author-fireflies 9s ease-in-out infinite;
+}
+.theme-light span.AtxMercury {
+  --am1: #344257;
+  --am2: #69768c;
+  --am3: #45596f;
+  color: #49586f;
+}
+.theme-light span.AtxStarSilk {
+  --as1: #67518d;
+  --as2: #326b8a;
+  --as3: #846140;
+  color: #655083;
+}
+.theme-light span.AtxEmberInk {
+  --ae1: #9f462d;
+  --ae2: #9b632a;
+  --ae3: #a23d58;
+  color: #934f35;
+}
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  span:is(.AtxMercury, .AtxStarSilk, .AtxEmberInk) {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-repeat: repeat;
+  }
+  span.AtxMercury {
+    background-image: linear-gradient(
+      112deg,
+      var(--am2),
+      var(--am1) 23%,
+      var(--am2) 44%,
+      var(--am3) 61%,
+      var(--am1) 76%,
+      var(--am2)
+    );
+    background-size: 300% 100%;
+    animation: atx-author-flow 12s ease-in-out infinite;
+  }
+  span.AtxStarSilk {
+    background-image:
+      radial-gradient(circle at 12px 8px, var(--as3) 0 1px, transparent 2px),
+      linear-gradient(
+        110deg,
+        var(--as1),
+        var(--as2) 45%,
+        var(--as3) 60%,
+        var(--as1)
+      );
+    background-size:
+      49px 37px,
+      240% 100%;
+    animation: atx-author-silk 19s ease-in-out infinite;
+  }
+  span.AtxEmberInk {
+    background-image:
+      repeating-linear-gradient(
+        110deg,
+        transparent 0 28px,
+        var(--ae2) 30px 31px,
+        transparent 34px 73px
+      ),
+      linear-gradient(
+        110deg,
+        var(--ae1),
+        var(--ae3) 40%,
+        var(--ae2) 65%,
+        var(--ae1)
+      );
+    background-size:
+      146px 100px,
+      220% 100%;
+    animation: atx-author-embers 16s linear infinite;
+  }
+}
+@keyframes atx-author-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes atx-author-crystal {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+@keyframes atx-author-tide {
+  0%,
+  100% {
+    background-position:
+      0% 70%,
+      0% 50%;
+  }
+  50% {
+    background-position:
+      100% 30%,
+      100% 50%;
+  }
+}
+@keyframes atx-author-plankton {
+  from {
+    background-position: 0 39px;
+  }
+  to {
+    background-position: 51px 0;
+  }
+}
+@keyframes atx-author-silk {
+  0%,
+  100% {
+    background-position:
+      0 0,
+      0% 50%;
+  }
+  50% {
+    background-position:
+      24px -18px,
+      100% 50%;
+  }
+}
+@keyframes atx-author-embers {
+  from {
+    background-position:
+      0 100px,
+      0% 50%;
+  }
+  to {
+    background-position:
+      146px 0,
+      100% 50%;
+  }
+}
+@keyframes atx-author-scan {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scaleY(0.75);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scaleY(1);
+  }
+}
+@keyframes atx-author-fireflies {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+span:is(
+    .AtxBorealis,
+    .AtxMercury,
+    .AtxRoseQuartz,
+    .AtxDeepOcean,
+    .AtxStarSilk,
+    .AtxEmberInk,
+    .AtxHologram,
+    .AtxMosslight
+  ).name {
+  font-weight: 800;
+  letter-spacing: 0.035em;
+}
+span:is(
+    .AtxBorealis,
+    .AtxMercury,
+    .AtxRoseQuartz,
+    .AtxDeepOcean,
+    .AtxStarSilk,
+    .AtxEmberInk,
+    .AtxHologram,
+    .AtxMosslight
+  ).plain {
+  padding: 0.02em 0.14em;
+  margin-inline: 0;
+  border-color: transparent;
+}
+span:is(
+    .AtxBorealis,
+    .AtxMercury,
+    .AtxRoseQuartz,
+    .AtxDeepOcean,
+    .AtxStarSilk,
+    .AtxEmberInk,
+    .AtxHologram,
+    .AtxMosslight
+  ).slow {
+  animation-duration: 30s;
+}
+span:is(
+    .AtxBorealis,
+    .AtxMercury,
+    .AtxRoseQuartz,
+    .AtxDeepOcean,
+    .AtxStarSilk,
+    .AtxEmberInk,
+    .AtxHologram,
+    .AtxMosslight
+  ).still,
+span:is(
+    .AtxBorealis,
+    .AtxMercury,
+    .AtxRoseQuartz,
+    .AtxDeepOcean,
+    .AtxStarSilk,
+    .AtxEmberInk,
+    .AtxHologram,
+    .AtxMosslight
+  ).still::before,
+span:is(
+    .AtxBorealis,
+    .AtxMercury,
+    .AtxRoseQuartz,
+    .AtxDeepOcean,
+    .AtxStarSilk,
+    .AtxEmberInk,
+    .AtxHologram,
+    .AtxMosslight
+  ).still::after {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  span:is(
+    .AtxBorealis,
+    .AtxMercury,
+    .AtxRoseQuartz,
+    .AtxDeepOcean,
+    .AtxStarSilk,
+    .AtxEmberInk,
+    .AtxHologram,
+    .AtxMosslight
+  ),
+  span:is(
+      .AtxBorealis,
+      .AtxMercury,
+      .AtxRoseQuartz,
+      .AtxDeepOcean,
+      .AtxStarSilk,
+      .AtxEmberInk,
+      .AtxHologram,
+      .AtxMosslight
+    )::before,
+  span:is(
+      .AtxBorealis,
+      .AtxMercury,
+      .AtxRoseQuartz,
+      .AtxDeepOcean,
+      .AtxStarSilk,
+      .AtxEmberInk,
+      .AtxHologram,
+      .AtxMosslight
+    )::after {
+    animation: none;
+  }
+}
+@media print {
+  span:is(
+    .AtxBorealis,
+    .AtxMercury,
+    .AtxRoseQuartz,
+    .AtxDeepOcean,
+    .AtxStarSilk,
+    .AtxEmberInk,
+    .AtxHologram,
+    .AtxMosslight
+  ) {
+    color: #222;
+    -webkit-text-fill-color: #222;
+    background: none;
+    border-color: #aaa;
+    text-shadow: none;
+    box-shadow: none;
+    animation: none;
+  }
+  span:is(
+      .AtxBorealis,
+      .AtxMercury,
+      .AtxRoseQuartz,
+      .AtxDeepOcean,
+      .AtxStarSilk,
+      .AtxEmberInk,
+      .AtxHologram,
+      .AtxMosslight
+    )::before,
+  span:is(
+      .AtxBorealis,
+      .AtxMercury,
+      .AtxRoseQuartz,
+      .AtxDeepOcean,
+      .AtxStarSilk,
+      .AtxEmberInk,
+      .AtxHologram,
+      .AtxMosslight
+    )::after {
+    display: none;
+  }
+}
+
+/* PEAK COLLECTION — 8 originals, independently selectable upgrades.
+   No image fetches, filters, JS particle loops or per-letter DOM. */
+span.Peak {
+  --pk-rate: 1;
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  box-sizing: border-box;
+  vertical-align: baseline;
+  max-width: 100%;
+  line-height: 1.6;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  overflow: visible;
+}
+span.Peak:is(
+    .TwSovereign,
+    .CelestiaZenith,
+    .LunaAstral,
+    .FluttershyEden,
+    .TONEventHorizon
+  ) {
+  padding: 0.12em 0.67em 0.17em;
+  margin: 0.12em 0.13em;
+  border: 1px solid var(--pk-edge);
+  color: var(--pk-ink);
+  background: var(--pk-base);
+  border-radius: 0.18em 0.48em 0.18em 0.48em;
+  text-shadow: 0 1px 2px #0006;
+}
+span.Peak:is(
+    .TwSovereign,
+    .CelestiaZenith,
+    .LunaAstral,
+    .FluttershyEden,
+    .TONEventHorizon
+  )::before,
+span.Peak:is(
+    .TwSovereign,
+    .CelestiaZenith,
+    .LunaAstral,
+    .FluttershyEden,
+    .TONEventHorizon
+  )::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: -1;
+  background-repeat: no-repeat;
+}
+/* TW / SOVEREIGN — armour seams, detached crown, long silver currents. */
+span.Peak.TwSovereign {
+  --pk-edge: #86b5d7;
+  --pk-ink: #e3f6ff;
+  --pk-base: linear-gradient(125deg, #101c2c, #284258 48%, #142238);
+  --pk-hair: 0.42;
+  box-shadow:
+    inset 0.12em 0 0 #a7dafa30,
+    inset -0.12em 0 0 #a7dafa30,
+    0 0 0.5em #65b1e62a;
+}
+span.Peak.TwSovereign::before {
+  inset: -0.52em 0.08em -0.04em;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2072%2022%22%3E%3Cg%20fill%3D%22%23bddeef%22%20stroke%3D%22%23bddeef%22%20stroke-width%3D%22.6%22%3E%3Cpath%20d%3D%22M3%2017L0%206L13%2012L16%2020Z%22%2F%3E%3Cpath%20d%3D%22M24%2016L23%200L31%208L31%2017Z%22%2F%3E%3Cpath%20d%3D%22M39%2017L44%200L49%206L47%2017Z%22%2F%3E%3Cpath%20d%3D%22M56%2020L59%2012L72%206L67%2017Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20180%2038%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%239bdcff%22%20stroke-width%3D%22.8%22%20stroke-opacity%3D%22.55%22%3E%3Cpath%20d%3D%22M0%2027L27%2018L37%2027L59%2012L79%2019L93%207L110%2017L138%209L157%2024L180%2015%22%2F%3E%3Cpath%20d%3D%22M37%2027L32%2038M93%207L88%200M138%209L144%200M157%2024L163%2038%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-position:
+    center top,
+    center calc(50% + 0.2em);
+  background-size:
+    2.6em 0.75em,
+    100% 100%;
+  animation: pk-sovereign-power calc(13s * var(--pk-rate)) ease-in-out infinite;
+}
+span.Peak.TwSovereign::after {
+  inset: 0.2em -0.68em -1.55em;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2030%20120%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23abd9f2%22%20stroke-width%3D%221.6%22%20stroke-opacity%3D%22.5%22%3E%3Cpath%20d%3D%22M20%202C0%2019%2018%2040%205%2062C0%2074%2010%2091%201%20110M27%204C12%2024%2031%2045%2017%2070C12%2082%2020%2095%208%20117%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2030%20120%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23abd9f2%22%20stroke-width%3D%221.6%22%20stroke-opacity%3D%22.5%22%3E%3Cpath%20d%3D%22M20%202C0%2019%2018%2040%205%2062C0%2074%2010%2091%201%20110M27%204C12%2024%2031%2045%2017%2070C12%2082%2020%2095%208%20117%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-position:
+    left top,
+    right top;
+  background-size:
+    0.68em 100%,
+    0.68em 100%;
+  opacity: var(--pk-hair);
+  transform-origin: center top;
+  animation: pk-sovereign-flow calc(11s * var(--pk-rate)) ease-in-out infinite;
+}
+@keyframes pk-sovereign-power {
+  0%,
+  62%,
+  100% {
+    opacity: 0.48;
+  }
+  77% {
+    opacity: 1;
+  }
+  86% {
+    opacity: 0.68;
+  }
+}
+@keyframes pk-sovereign-flow {
+  0%,
+  100% {
+    transform: translateY(0) skewX(-0.7deg);
+  }
+  50% {
+    transform: translateY(0.05em) skewX(0.9deg);
+  }
+}
+span.Peak.TwSovereign.quiet {
+  --pk-hair: 0.2;
+}
+span.Peak.TwSovereign.short::after {
+  bottom: -0.6em;
+}
+/* CELESTIA / ZENITH — a solar seal and hand-drawn gilded wing filaments. */
+span.Peak.CelestiaZenith {
+  --pk-edge: #e2bf7e;
+  --pk-ink: #fff0cb;
+  --pk-base: linear-gradient(110deg, #3c2d3f, #5f4737 48%, #314747);
+  border-radius: 0.55em;
+  box-shadow:
+    0 0 0.5em #dcbf7930,
+    inset 0 0 0.6em #ffe3b417;
+}
+span.Peak.CelestiaZenith::before {
+  inset: -0.23em -0.6em;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2075%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23eed4a1%22%20stroke-width%3D%221%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M2%2040Q29%2017%2057%204Q40%2025%2014%2040M6%2043Q34%2028%2059%2018Q39%2039%2010%2046M10%2048Q31%2039%2047%2036Q32%2050%2012%2052%22%2F%3E%3Cpath%20d%3D%22M5%2042Q9%2063%2026%2069%22%20stroke%3D%22%23f4b6d1%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2075%22%3E%3Cg%20transform%3D%22translate%2864%200%29%20scale%28-1%201%29%22%20fill%3D%22none%22%20stroke%3D%22%23eed4a1%22%20stroke-width%3D%221%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M2%2040Q29%2017%2057%204Q40%2025%2014%2040M6%2043Q34%2028%2059%2018Q39%2039%2010%2046M10%2048Q31%2039%2047%2036Q32%2050%2012%2052%22%2F%3E%3Cpath%20d%3D%22M5%2042Q9%2063%2026%2069%22%20stroke%3D%22%23f4b6d1%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-size:
+    1.35em 100%,
+    1.35em 100%;
+  background-position:
+    left center,
+    right center;
+  opacity: 0.65;
+  animation: pk-zenith-wings calc(10s * var(--pk-rate)) ease-in-out infinite;
+}
+span.Peak.CelestiaZenith::after {
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23ffdf9b%22%20stroke-width%3D%221%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2221%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2229%22%20stroke-dasharray%3D%221%204%22%2F%3E%3Cpath%20d%3D%22M50%204V16M50%2084V96M4%2050H16M84%2050H96M17%2017L25%2025M75%2075L83%2083M17%2083L25%2075M75%2025L83%2017%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+    linear-gradient(105deg, transparent 22%, #ffdea52e 49%, transparent 76%);
+  background-size:
+    1.7em 1.7em,
+    280% 100%;
+  background-position:
+    center,
+    0% 50%;
+  animation: pk-zenith-dawn calc(15s * var(--pk-rate)) ease-in-out infinite;
+}
+@keyframes pk-zenith-wings {
+  0%,
+  100% {
+    transform: scaleX(0.98);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scaleX(1.04);
+    opacity: 0.85;
+  }
+}
+@keyframes pk-zenith-dawn {
+  0%,
+  100% {
+    background-position:
+      center,
+      0% 50%;
+    opacity: 0.45;
+  }
+  50% {
+    background-position:
+      center,
+      100% 50%;
+    opacity: 0.9;
+  }
+}
+/* LUNA / ASTRAL — mapped constellations, crescent and an inclined orbit. */
+span.Peak.LunaAstral {
+  --pk-edge: #8babe2;
+  --pk-ink: #e0eaff;
+  --pk-base: linear-gradient(120deg, #111a36, #28345d 52%, #201b3b);
+  box-shadow: inset 0 0 0.65em #9abcf21a;
+}
+span.Peak.LunaAstral::before {
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20180%2040%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%239ab7e9%22%20stroke-width%3D%22.6%22%20stroke-opacity%3D%22.4%22%3E%3Cpath%20d%3D%22M5%2022L27%208L46%2024L72%2015L95%2031L127%2010L153%2023L177%207%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23e2efff%22%3E%3Ccircle%20cx%3D%225%22%20cy%3D%2222%22%20r%3D%221.1%22%2F%3E%3Ccircle%20cx%3D%2227%22%20cy%3D%228%22%20r%3D%221%22%2F%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%2224%22%20r%3D%221.3%22%2F%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%2215%22%20r%3D%22.7%22%2F%3E%3Ccircle%20cx%3D%2295%22%20cy%3D%2231%22%20r%3D%221%22%2F%3E%3Ccircle%20cx%3D%22127%22%20cy%3D%2210%22%20r%3D%221.2%22%2F%3E%3Ccircle%20cx%3D%22153%22%20cy%3D%2223%22%20r%3D%22.8%22%2F%3E%3Ccircle%20cx%3D%22177%22%20cy%3D%227%22%20r%3D%221%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cpath%20d%3D%22M23%203C3%203%200%2025%2015%2034C23%2038%2033%2035%2037%2027C20%2032%2010%2013%2023%203Z%22%20fill%3D%22%23d5e7ff%22%20fill-opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E");
+  background-size:
+    180px 100%,
+    1em 1em;
+  background-position:
+    center,
+    right 0.1em top -0.12em;
+  animation: pk-astral-stars calc(8s * var(--pk-rate)) ease-in-out infinite;
+}
+span.Peak.LunaAstral::after {
+  inset: 0.12em 0.13em;
+  border: 1px solid #b8cbf24a;
+  border-radius: 50%;
+  transform-origin: center;
+  animation: pk-astral-orbit calc(16s * var(--pk-rate)) ease-in-out infinite;
+}
+@keyframes pk-astral-stars {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+@keyframes pk-astral-orbit {
+  0%,
+  100% {
+    transform: rotate(-8deg) scaleY(0.75);
+    opacity: 0.25;
+  }
+  50% {
+    transform: rotate(7deg) scaleY(0.85);
+    opacity: 0.65;
+  }
+}
+/* FLUTTERSHY / EDEN — botanical ribbon, cream light, a tiny butterfly. */
+span.Peak.FluttershyEden {
+  --pk-edge: #dfc5cb;
+  --pk-ink: #72525d;
+  --pk-base: linear-gradient(115deg, #fff9e9, #f7e8ed 50%, #f6f8e5);
+  border-radius: 0.7em 0.28em 0.7em 0.28em;
+  text-shadow: 0 1px 0 #fff;
+  box-shadow: 0 0 0.55em #e9cad72a;
+}
+span.Peak.FluttershyEden::before {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%2044%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23c8ba89%22%20stroke-width%3D%22.7%22%20stroke-opacity%3D%22.7%22%3E%3Cpath%20d%3D%22M0%2037Q20%2023%2040%2032T80%2028T120%2032T160%2025T200%2032%22%2F%3E%3Cpath%20d%3D%22M18%2030Q11%2018%2025%2022Q28%2026%2018%2030M75%2030Q68%2017%2081%2022Q85%2026%2075%2030M146%2029Q140%2015%20153%2020Q156%2025%20146%2029%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23deb3c4%22%20fill-opacity%3D%22.55%22%3E%3Cpath%20d%3D%22M36%2019Q43%2015%2042%2022Q39%2028%2036%2019Z%22%2F%3E%3Cpath%20d%3D%22M103%2010Q110%207%20108%2014Q105%2019%20103%2010Z%22%2F%3E%3Cpath%20d%3D%22M174%2012Q181%2010%20179%2017Q176%2022%20174%2012Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-size: 200px 100%;
+  background-repeat: repeat-x;
+  animation: pk-eden-garden calc(23s * var(--pk-rate)) ease-in-out infinite;
+}
+span.Peak.FluttershyEden::after {
+  inset: -0.35em -0.28em auto auto;
+  width: 0.9em;
+  height: 0.85em;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2050%2046%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23dba8bf%22%20stroke-width%3D%221.2%22%3E%3Cpath%20d%3D%22M25%2023C12%200%200%2010%208%2022Q15%2030%2025%2023C38%200%2050%2010%2042%2022Q35%2030%2025%2023M24%2025Q6%2024%2015%2040Q23%2044%2024%2025M26%2025Q44%2024%2035%2040Q27%2044%2026%2025M25%2019V36%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-size: contain;
+  transform-origin: center;
+  animation: pk-eden-butterfly calc(7s * var(--pk-rate)) ease-in-out infinite;
+}
+@keyframes pk-eden-garden {
+  0%,
+  100% {
+    background-position: 0 center;
+    opacity: 0.45;
+  }
+  50% {
+    background-position: 35px center;
+    opacity: 0.8;
+  }
+}
+@keyframes pk-eden-butterfly {
+  0%,
+  100% {
+    transform: rotate(-9deg) scaleX(0.8);
+    opacity: 0.55;
+  }
+  50% {
+    transform: rotate(8deg) scaleX(1);
+    opacity: 0.9;
+  }
+}
+/* TON / EVENT HORIZON — dark aperture and a restrained amber orbital disc. */
+span.Peak.TONEventHorizon {
+  --pk-edge: #b88b60;
+  --pk-ink: #ffe0ba;
+  --pk-base: #100f18;
+  border-radius: 0.55em;
+  box-shadow: inset 0 0 0.45em #ffba7a12;
+}
+span.Peak.TONEventHorizon::before {
+  background:
+    radial-gradient(ellipse at center, #080a12 0 20%, transparent 63%),
+    linear-gradient(
+      167deg,
+      transparent 27%,
+      #d5844f70 43%,
+      #ffe8bdaf 48%,
+      #cb754b70 54%,
+      transparent 71%
+    );
+  background-size:
+    100% 100%,
+    220% 160%;
+  animation: pk-horizon-disc calc(14s * var(--pk-rate)) ease-in-out infinite;
+}
+span.Peak.TONEventHorizon::after {
+  inset: 0.14em 0.17em;
+  border-top: 1px solid #ffdda4a0;
+  border-bottom: 1px solid #ae725e80;
+  border-radius: 50%;
+  animation: pk-horizon-orbit calc(18s * var(--pk-rate)) ease-in-out infinite;
+}
+@keyframes pk-horizon-disc {
+  0%,
+  100% {
+    background-position:
+      center,
+      0% 40%;
+    opacity: 0.5;
+  }
+  50% {
+    background-position:
+      center,
+      100% 60%;
+    opacity: 0.95;
+  }
+}
+@keyframes pk-horizon-orbit {
+  0%,
+  100% {
+    transform: rotate(-8deg) scaleY(0.85);
+    opacity: 0.5;
+  }
+  50% {
+    transform: rotate(5deg) scaleY(0.7);
+    opacity: 0.85;
+  }
+}
+/* Three Peak inks: the entire texture stays inside the glyphs. */
+span.Peak.NightmareEclipse {
+  --pe1: #93b5e6;
+  --pe2: #d3e5f5;
+  --pe3: #a996dc;
+  color: #acc4ef;
+  --pk-inktime: 19s;
+}
+span.Peak.DaybreakerNova {
+  --pe1: #f29c60;
+  --pe2: #ffe7ae;
+  --pe3: #e4a293;
+  color: #f2b477;
+  --pk-inktime: 12s;
+}
+span.Peak.MidnightRift {
+  --pe1: #c09aef;
+  --pe2: #a5f0f2;
+  --pe3: #e1acdf;
+  color: #cca9ed;
+  --pk-inktime: 15s;
+}
+.theme-light span.Peak.NightmareEclipse {
+  --pe1: #314d80;
+  --pe2: #346487;
+  --pe3: #655080;
+  color: #405b8d;
+}
+.theme-light span.Peak.DaybreakerNova {
+  --pe1: #a34421;
+  --pe2: #916020;
+  --pe3: #a14a4a;
+  color: #9e4d26;
+}
+.theme-light span.Peak.MidnightRift {
+  --pe1: #754099;
+  --pe2: #146775;
+  --pe3: #924d8c;
+  color: #71468d;
+}
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  span.Peak:is(.NightmareEclipse, .DaybreakerNova, .MidnightRift) {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: none;
+    background-repeat: repeat;
+    animation-duration: calc(var(--pk-inktime) * var(--pk-rate));
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  span.Peak.NightmareEclipse {
+    background-image:
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2036%22%3E%3Cg%20fill%3D%22%23d6ecff%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221%22%2F%3E%3Ccircle%20cx%3D%2243%22%20cy%3D%2224%22%20r%3D%22.7%22%2F%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%2210%22%20r%3D%221%22%2F%3E%3Cpath%20d%3D%22M31%204L32%208L36%209L32%2010L31%2014L30%2010L26%209L30%208Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+      radial-gradient(
+        ellipse at center,
+        transparent 28%,
+        var(--pe2) 36%,
+        var(--pe1) 42%,
+        transparent 57%
+      ),
+      linear-gradient(
+        115deg,
+        var(--pe1),
+        var(--pe3) 42%,
+        var(--pe2) 64%,
+        var(--pe1)
+      );
+    background-size:
+      90px 36px,
+      230px 160%,
+      230% 100%;
+    animation-name: pk-eclipse-ink;
+  }
+  span.Peak.DaybreakerNova {
+    background-image:
+      repeating-radial-gradient(
+        ellipse at 50% 130%,
+        transparent 0 17px,
+        var(--pe2) 19px 20px,
+        transparent 24px 46px
+      ),
+      repeating-linear-gradient(
+        112deg,
+        transparent 0 28px,
+        var(--pe2) 30px 31px,
+        transparent 34px 73px
+      ),
+      linear-gradient(
+        100deg,
+        var(--pe1),
+        var(--pe3) 30%,
+        var(--pe2) 52%,
+        var(--pe1)
+      );
+    background-size:
+      146px 120px,
+      146px 120px,
+      280% 100%;
+    animation-name: pk-nova-ink;
+  }
+  span.Peak.MidnightRift {
+    background-image:
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%2042%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23a4f6ff%22%20stroke-width%3D%221.1%22%3E%3Cpath%20d%3D%22M0%2029L29%207L55%2024L86%202L105%2020L136%208L166%2025L200%203%22%2F%3E%3Cpath%20d%3D%22M29%207L22%200M55%2024L59%2042M105%2020L98%2042M166%2025L174%2042%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23cda8ff%22%20fill-opacity%3D%22.5%22%3E%3Cpath%20d%3D%22M64%203L78%201L71%2016Z%22%2F%3E%3Cpath%20d%3D%22M137%2024L151%2038L130%2039Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+      repeating-radial-gradient(
+        ellipse at center,
+        transparent 0 27px,
+        var(--pe2) 29px 30px,
+        transparent 34px 63px
+      ),
+      linear-gradient(
+        112deg,
+        var(--pe1),
+        var(--pe3) 32%,
+        var(--pe2) 55%,
+        var(--pe1)
+      );
+    background-size:
+      200px 100%,
+      260px 160px,
+      250% 100%;
+    animation-name: pk-rift-ink;
+  }
+}
+@keyframes pk-eclipse-ink {
+  0%,
+  100% {
+    background-position:
+      0 0,
+      0% center,
+      0% 50%;
+  }
+  50% {
+    background-position:
+      45px -18px,
+      100% center,
+      100% 50%;
+  }
+}
+@keyframes pk-nova-ink {
+  0%,
+  100% {
+    background-position:
+      0 120px,
+      0 120px,
+      0% 50%;
+  }
+  50% {
+    background-position:
+      73px 0,
+      73px 0,
+      100% 50%;
+  }
+}
+@keyframes pk-rift-ink {
+  0%,
+  100% {
+    background-position:
+      0 center,
+      0 0,
+      0% 50%;
+  }
+  50% {
+    background-position:
+      50px center,
+      63px -31px,
+      100% 50%;
+  }
+}
+span.Peak.name {
+  font-weight: 850;
+  letter-spacing: 0.035em;
+}
+span.Peak.plain {
+  padding: 0.03em 0.2em;
+  margin-inline: 0;
+  border-color: transparent;
+}
+span.Peak.slow {
+  --pk-rate: 1.7;
+}
+span.Peak.still,
+span.Peak.still::before,
+span.Peak.still::after {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  span.Peak:is(
+      .TwSovereign,
+      .CelestiaZenith,
+      .LunaAstral,
+      .FluttershyEden,
+      .TONEventHorizon,
+      .NightmareEclipse,
+      .DaybreakerNova,
+      .MidnightRift
+    ),
+  span.Peak:is(
+      .TwSovereign,
+      .CelestiaZenith,
+      .LunaAstral,
+      .FluttershyEden,
+      .TONEventHorizon,
+      .NightmareEclipse,
+      .DaybreakerNova,
+      .MidnightRift
+    )::before,
+  span.Peak:is(
+      .TwSovereign,
+      .CelestiaZenith,
+      .LunaAstral,
+      .FluttershyEden,
+      .TONEventHorizon,
+      .NightmareEclipse,
+      .DaybreakerNova,
+      .MidnightRift
+    )::after {
+    animation: none;
+  }
+}
+@media print {
+  span.Peak:is(
+      .TwSovereign,
+      .CelestiaZenith,
+      .LunaAstral,
+      .FluttershyEden,
+      .TONEventHorizon,
+      .NightmareEclipse,
+      .DaybreakerNova,
+      .MidnightRift
+    ) {
+    color: #222;
+    -webkit-text-fill-color: #222;
+    background: none;
+    border-color: #aaa;
+    text-shadow: none;
+    box-shadow: none;
+    animation: none;
+  }
+  span.Peak:is(
+      .TwSovereign,
+      .CelestiaZenith,
+      .LunaAstral,
+      .FluttershyEden,
+      .TONEventHorizon,
+      .NightmareEclipse,
+      .DaybreakerNova,
+      .MidnightRift
+    )::before,
+  span.Peak:is(
+      .TwSovereign,
+      .CelestiaZenith,
+      .LunaAstral,
+      .FluttershyEden,
+      .TONEventHorizon,
+      .NightmareEclipse,
+      .DaybreakerNova,
+      .MidnightRift
+    )::after {
+    display: none;
+  }
+}
+@media (forced-colors: active) {
+  span.Peak:is(
+      .TwSovereign,
+      .CelestiaZenith,
+      .LunaAstral,
+      .FluttershyEden,
+      .TONEventHorizon,
+      .NightmareEclipse,
+      .DaybreakerNova,
+      .MidnightRift
+    ) {
+    color: CanvasText;
+    -webkit-text-fill-color: CanvasText;
+    background: none;
+    text-shadow: none;
+    box-shadow: none;
+    animation: none;
+  }
+  span.Peak:is(
+      .TwSovereign,
+      .CelestiaZenith,
+      .LunaAstral,
+      .FluttershyEden,
+      .TONEventHorizon,
+      .NightmareEclipse,
+      .DaybreakerNova,
+      .MidnightRift
+    )::before,
+  span.Peak:is(
+      .TwSovereign,
+      .CelestiaZenith,
+      .LunaAstral,
+      .FluttershyEden,
+      .TONEventHorizon,
+      .NightmareEclipse,
+      .DaybreakerNova,
+      .MidnightRift
+    )::after {
+    display: none;
+  }
+}
+
+/* 1.4.1: mirror the right SVG internally; both CSS boxes remain outside the text. */
+/* 1.4 — bounded per-letter runtime and bespoke yellow feather wings. */
+span.AtxPulse {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: baseline;
+  font-weight: 650;
+  line-height: 1.65;
+  color: var(--text-normal, #e3eaf5);
+  background: none;
+  border: 0;
+  text-shadow: none;
+}
+.atx-letter-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.atx-letter {
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+}
+span.AtxPulse .atx-pulse-outline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.8px var(--atx-pulse-color, #d7abff);
+  opacity: 0;
+  animation: atx-contour-wave var(--atx-pulse-cycle, 5s) linear
+    var(--atx-letter-delay, 0s) infinite;
+}
+@keyframes atx-contour-wave {
+  0% {
+    opacity: 0;
+  }
+  1.5% {
+    opacity: 1;
+  }
+  4.5%,
+  100% {
+    opacity: 0;
+  }
+}
+span.AtxSick {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 1.95;
+  vertical-align: baseline;
+  font-weight: 700;
+  color: #d4b9e9;
+  text-shadow: none;
+  background: none;
+}
+.theme-light span.AtxSick {
+  color: #6d4f87;
+}
+span.AtxSick .atx-letter {
+  padding: 0 0.075em;
+  transform-origin: 50% 65%;
+  transform: rotate(var(--as-angle, 0deg)) scale(var(--as-x, 1), var(--as-y, 1));
+}
+span.AtxSick .atx-letter-morph {
+  animation: atx-sick-morph var(--as-duration, 8s) ease-in-out
+    var(--as-delay, 0s) infinite;
+}
+@keyframes atx-sick-morph {
+  0%,
+  18%,
+  100% {
+    transform: rotate(var(--as-angle, 0deg))
+      scale(var(--as-x, 1), var(--as-y, 1));
+  }
+  46%,
+  62% {
+    transform: rotate(calc(var(--as-angle, 0deg) + 12deg))
+      scale(var(--as-other-x, 1), var(--as-other-y, 1));
+  }
+}
+span:is(.AtxPulse, .AtxSick).name {
+  font-weight: 850;
+  letter-spacing: 0.02em;
+}
+span.AtxPulse.still .atx-pulse-outline {
+  animation: none;
+  opacity: 0.55;
+}
+span.AtxSick.still .atx-letter-morph {
+  animation: none;
+}
+/* The main text is uncluttered; actual wings occupy margins, never the glyphs. */
+span.Peak.FluttershyWings {
+  --fw-a: #f1b8ce;
+  --fw-b: #f9dce6;
+  --fw-c: #dda8cb;
+  --fw-rate: 1;
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  max-width: calc(100% - 4.9em);
+  margin: 0.25em 2.45em;
+  line-height: 1.6;
+  padding: 0.03em 0.06em;
+  vertical-align: baseline;
+  font-weight: 750;
+  color: #ecb7ce;
+  background: none;
+  border: 0;
+  overflow: visible;
+  text-shadow: none;
+}
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  span.Peak.FluttershyWings {
+    background-image: linear-gradient(
+      110deg,
+      var(--fw-a),
+      var(--fw-b) 37%,
+      var(--fw-c) 61%,
+      var(--fw-b) 78%,
+      var(--fw-a)
+    );
+    background-size: 270% 100%;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: atx-wing-ink calc(15s * var(--fw-rate)) ease-in-out infinite;
+  }
+}
+.theme-light span.Peak.FluttershyWings {
+  --fw-a: #b46589;
+  --fw-b: #a86686;
+  --fw-c: #9e5887;
+  color: #ad6b8d;
+}
+span.Peak.FluttershyWings::before,
+span.Peak.FluttershyWings::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 2.12em;
+  height: 2em;
+  margin-top: -1.35em;
+  z-index: -1;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20180%20165%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22f%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23fff5be%22%2F%3E%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%23f6df8f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e4c66e%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23fff7c9%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ebd27c%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M163%20144C132.00%20105.14%2043.70%2034.79%2013%2020C29.23%2043.13%20120.63%20118.90%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M148.00%20131.60Q80.82%2075.41%2022.00%2027.44%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C129.36%20108.84%2037.18%2047.83%206%2036C23.87%2057.10%20119.54%20123.12%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M147.30%20133.20Q76.93%2084.19%2015.42%2042.48%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C128.21%20113.39%2035.63%2063.44%205%2055C23.66%2073.59%20119.97%20128.02%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M147.20%20135.10Q76.35%2094.61%2014.48%2060.34%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C128.84%20118.28%2039.92%2079.96%2011%2075C29.46%2090.87%20122.12%20133.10%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M147.80%20137.10Q79.61%20105.59%2020.12%2079.14%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C131.03%20123.02%2049.22%2095.72%2023%2094C40.38%20107.22%20125.73%20137.86%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M149.00%20139.00Q86.17%20116.03%2031.40%2097.00%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C134.24%20127.34%2061.87%20109.88%2039%20111C54.72%20121.79%20130.32%20142.06%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M150.60%20140.70Q94.93%20125.37%2046.44%20112.98%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C138.36%20131.46%2077.76%20123.26%2059%20127C72.57%20135.46%20135.98%20145.97%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M152.60%20142.30Q105.88%20134.16%2065.24%20128.02%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C143.15%20134.91%2096.09%20134.21%2082%20140C93.05%20146.49%20142.45%20149.07%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M154.90%20143.60Q118.47%20141.30%2086.86%20140.24%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C148.34%20136.96%20115.36%20140.26%20106%20147C114.28%20152.29%20149.06%20150.59%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M157.30%20144.30Q131.62%20145.15%20109.42%20146.82%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C144.14%20107.86%2079.21%2042.24%2056%2027C67.27%2047.05%20134.27%20117.29%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M155.00%20130.50Q105.86%2078.40%2062.60%2033.90%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C145.27%20111.91%2083.89%2056.19%2062%2044C72.70%2061.82%20136.05%20121.69%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M155.60%20132.20Q109.14%2087.74%2068.24%2049.88%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C146.60%20115.95%2089.37%2070.13%2069%2061C79.03%2076.60%20138.12%20126.10%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M156.30%20133.90Q112.97%2097.07%2074.82%2065.86%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C148.99%20119.81%2098.21%2083.30%2080%2077C88.75%2090.45%20141.14%20130.20%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M157.40%20135.50Q119.00%20105.85%2085.16%2080.90%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C152.18%20123.49%20109.58%2095.69%2094%2092C101.02%20103.41%20144.87%20134.01%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M158.80%20137.00Q126.69%20114.09%2098.32%2095.00%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C155.67%20126.71%20121.83%20106.46%20109%20105C114.11%20114.61%20148.81%20137.28%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M160.30%20138.30Q134.92%20121.23%20112.42%20107.22%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C159.54%20129.52%20135.00%20115.64%20125%20116C127.96%20124.02%20152.91%20139.98%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M161.90%20139.40Q143.72%20127.28%20127.46%20117.56%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M160%20143Q134%20105%20106%2089Q126%2085%20151%20103Q177%20120%20172%20143Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.5%22%20stroke-width%3D%22.8%22%2F%3E%3Cellipse%20cx%3D%22139%22%20cy%3D%22112%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-33%20139%20112%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3Cellipse%20cx%3D%22149%22%20cy%3D%22120%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-28%20149%20120%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3Cellipse%20cx%3D%22157%22%20cy%3D%22130%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-19%20157%20130%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3Cellipse%20cx%3D%22128%22%20cy%3D%22108%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-42%20128%20108%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3Cellipse%20cx%3D%22137%22%20cy%3D%22123%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-30%20137%20123%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3Cellipse%20cx%3D%22148%22%20cy%3D%22134%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-20%20148%20134%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3C%2Fsvg%3E")
+    center/contain no-repeat;
+}
+span.Peak.FluttershyWings::before {
+  left: -2.42em;
+  transform-origin: 100% 86%;
+  animation: atx-wing-left calc(7s * var(--fw-rate)) ease-in-out infinite;
+}
+span.Peak.FluttershyWings::after {
+  right: -2.42em;
+  transform-origin: 0% 86%;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20180%20165%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22f%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23fff5be%22%2F%3E%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%23f6df8f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e4c66e%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23fff7c9%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ebd27c%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cg%20transform%3D%22translate%28180%200%29%20scale%28-1%201%29%22%3E%3Cpath%20d%3D%22M163%20144C132.00%20105.14%2043.70%2034.79%2013%2020C29.23%2043.13%20120.63%20118.90%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M148.00%20131.60Q80.82%2075.41%2022.00%2027.44%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C129.36%20108.84%2037.18%2047.83%206%2036C23.87%2057.10%20119.54%20123.12%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M147.30%20133.20Q76.93%2084.19%2015.42%2042.48%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C128.21%20113.39%2035.63%2063.44%205%2055C23.66%2073.59%20119.97%20128.02%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M147.20%20135.10Q76.35%2094.61%2014.48%2060.34%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C128.84%20118.28%2039.92%2079.96%2011%2075C29.46%2090.87%20122.12%20133.10%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M147.80%20137.10Q79.61%20105.59%2020.12%2079.14%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C131.03%20123.02%2049.22%2095.72%2023%2094C40.38%20107.22%20125.73%20137.86%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M149.00%20139.00Q86.17%20116.03%2031.40%2097.00%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C134.24%20127.34%2061.87%20109.88%2039%20111C54.72%20121.79%20130.32%20142.06%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M150.60%20140.70Q94.93%20125.37%2046.44%20112.98%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C138.36%20131.46%2077.76%20123.26%2059%20127C72.57%20135.46%20135.98%20145.97%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M152.60%20142.30Q105.88%20134.16%2065.24%20128.02%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C143.15%20134.91%2096.09%20134.21%2082%20140C93.05%20146.49%20142.45%20149.07%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M154.90%20143.60Q118.47%20141.30%2086.86%20140.24%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M163%20144C148.34%20136.96%20115.36%20140.26%20106%20147C114.28%20152.29%20149.06%20150.59%20163%20144Z%22%20fill%3D%22url%28%23f%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M157.30%20144.30Q131.62%20145.15%20109.42%20146.82%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C144.14%20107.86%2079.21%2042.24%2056%2027C67.27%2047.05%20134.27%20117.29%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M155.00%20130.50Q105.86%2078.40%2062.60%2033.90%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C145.27%20111.91%2083.89%2056.19%2062%2044C72.70%2061.82%20136.05%20121.69%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M155.60%20132.20Q109.14%2087.74%2068.24%2049.88%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C146.60%20115.95%2089.37%2070.13%2069%2061C79.03%2076.60%20138.12%20126.10%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M156.30%20133.90Q112.97%2097.07%2074.82%2065.86%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C148.99%20119.81%2098.21%2083.30%2080%2077C88.75%2090.45%20141.14%20130.20%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M157.40%20135.50Q119.00%20105.85%2085.16%2080.90%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C152.18%20123.49%20109.58%2095.69%2094%2092C101.02%20103.41%20144.87%20134.01%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M158.80%20137.00Q126.69%20114.09%2098.32%2095.00%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C155.67%20126.71%20121.83%20106.46%20109%20105C114.11%20114.61%20148.81%20137.28%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M160.30%20138.30Q134.92%20121.23%20112.42%20107.22%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M166%20142C159.54%20129.52%20135.00%20115.64%20125%20116C127.96%20124.02%20152.91%20139.98%20166%20142Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M161.90%20139.40Q143.72%20127.28%20127.46%20117.56%22%20fill%3D%22none%22%20stroke%3D%22%23fff7d2%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M160%20143Q134%20105%20106%2089Q126%2085%20151%20103Q177%20120%20172%20143Z%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%23c7a35e%22%20stroke-opacity%3D%22.5%22%20stroke-width%3D%22.8%22%2F%3E%3Cellipse%20cx%3D%22139%22%20cy%3D%22112%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-33%20139%20112%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3Cellipse%20cx%3D%22149%22%20cy%3D%22120%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-28%20149%20120%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3Cellipse%20cx%3D%22157%22%20cy%3D%22130%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-19%20157%20130%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3Cellipse%20cx%3D%22128%22%20cy%3D%22108%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-42%20128%20108%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3Cellipse%20cx%3D%22137%22%20cy%3D%22123%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-30%20137%20123%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3Cellipse%20cx%3D%22148%22%20cy%3D%22134%22%20rx%3D%226%22%20ry%3D%2212%22%20transform%3D%22rotate%28-20%20148%20134%29%22%20fill%3D%22%23f9e8ab%22%20stroke%3D%22%23dcc17b%22%20stroke-width%3D%22.6%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  animation: atx-wing-right calc(7s * var(--fw-rate)) ease-in-out infinite;
+}
+@keyframes atx-wing-ink {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes atx-wing-left {
+  0%,
+  100% {
+    transform: rotate(-3deg) scaleY(0.95);
+  }
+  50% {
+    transform: rotate(4deg) scaleY(1);
+  }
+}
+@keyframes atx-wing-right {
+  0%,
+  100% {
+    transform: rotate(3deg) scaleY(0.95);
+  }
+  50% {
+    transform: rotate(-4deg) scaleY(1);
+  }
+}
+span.Peak.FluttershyWings.slow {
+  --fw-rate: 1.7;
+}
+span.Peak.FluttershyWings.still,
+span.Peak.FluttershyWings.still::before,
+span.Peak.FluttershyWings.still::after {
+  animation: none;
+}
+span.Peak.FluttershyWings.still::after {
+  transform: none;
+}
+.atx-color {
+  width: 36px !important;
+  min-width: 36px !important;
+  height: 25px !important;
+  padding: 2px !important;
+  cursor: pointer;
+}
+.atx-compact-color {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  color: var(--text-muted);
+  font-size: 10px;
+}
+@media (prefers-reduced-motion: reduce) {
+  span.AtxPulse .atx-pulse-outline {
+    animation: none;
+    opacity: 0.55;
+  }
+  span.AtxSick .atx-letter-morph,
+  span.Peak.FluttershyWings,
+  span.Peak.FluttershyWings::before,
+  span.Peak.FluttershyWings::after {
+    animation: none;
+  }
+  span.Peak.FluttershyWings::after {
+    transform: none;
+  }
+}
+@media print {
+  span:is(.AtxPulse, .AtxSick),
+  span.Peak.FluttershyWings {
+    color: #222;
+    -webkit-text-fill-color: #222;
+    background: none;
+    text-shadow: none;
+    animation: none;
+  }
+  span.AtxSick .atx-letter {
+    transform: none;
+    animation: none;
+  }
+  span.AtxPulse .atx-pulse-outline,
+  span.Peak.FluttershyWings::before,
+  span.Peak.FluttershyWings::after {
+    display: none;
+  }
+}
+span.Peak.FluttershyWings.name {
+  font-weight: 850;
+  letter-spacing: 0.035em;
+}
+
+.atx-modal.modal {
+  width: min(1050px, 94vw);
+  max-width: 1050px;
+  max-height: 94vh;
+  padding: 0;
+  overflow: hidden;
+}
+.atx-modal .modal-content {
+  margin: 0;
+  padding: 0;
+  max-height: 94vh;
+  overflow: auto;
+}
+.atx-panel {
+  padding: 30px;
+  color: var(--text-normal, #dce5f3);
+  font-family: var(--font-interface, system-ui, sans-serif);
+}
+.atx-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--text-accent, #9fc0ef);
+  margin-bottom: 8px;
+}
+.atx-panel h2.atx-title {
+  font-size: 30px;
+  letter-spacing: -0.7px;
+  line-height: 1.2;
+  margin: 0 0 12px;
+  padding: 0;
+}
+.atx-lead {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-muted, #9caec6);
+  margin: 0 0 20px;
+}
+.atx-hero {
+  position: relative;
+  padding: 22px 28px 52px;
+  border: 1px solid var(--background-modifier-border, #36445d);
+  border-radius: 15px;
+  background: var(--background-secondary, #192638);
+  min-height: 165px;
+  overflow: auto;
+  max-height: 300px;
+  margin-bottom: 20px;
+}
+.atx-badge {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted, #9cacc3);
+  margin-bottom: 21px;
+}
+.atx-hero > span {
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.6;
+}
+.atx-caption {
+  font-size: 12px;
+  color: var(--text-muted, #9cacc3);
+  margin: 17px 0 0;
+}
+.atx-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.atx-panel input.atx-search {
+  min-width: 180px;
+  flex: 1;
+  height: 37px;
+  border: 1px solid var(--background-modifier-border, #3c4d68);
+  border-radius: 8px;
+  background: var(--background-primary, #131f30);
+  color: var(--text-normal, #dfebfa);
+  padding: 8px 12px;
+  box-shadow: none;
+}
+.atx-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.atx-panel button.atx-tab {
+  font: inherit;
+  font-size: 11px;
+  padding: 8px 10px;
+  line-height: 1.25;
+  border-radius: 7px;
+  border: 1px solid var(--background-modifier-border, #3d4e69);
+  background: transparent;
+  color: var(--text-muted, #b3c0d4);
+  height: auto;
+  box-shadow: none;
+}
+.atx-panel button.atx-tab[aria-pressed="true"] {
+  color: var(--text-normal, #f0f5ff);
+  background: var(--background-modifier-hover, #304360);
+  border-color: var(--interactive-accent, #849fd3);
+}
+.atx-flags {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 12px 0 20px;
+}
+.atx-flag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted, #afbdd0);
+  font-size: 12px;
+  cursor: pointer;
+}
+.atx-flag input {
+  margin: 0;
+}
+.atx-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 11px;
+}
+.atx-panel button.atx-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  white-space: normal;
+  overflow: hidden;
+  border: 1px solid var(--background-modifier-border, #35465f);
+  border-radius: 11px;
+  background: var(--background-primary, #132032);
+  color: var(--text-normal, #dce7f5);
+  padding: 15px 15px 17px;
+  box-shadow: none;
+  cursor: pointer;
+  font: inherit;
+}
+.atx-panel button.atx-card:hover,
+.atx-panel button.atx-card:focus-visible {
+  background: var(--background-secondary, #203149);
+  border-color: var(--interactive-accent, #8aa8df);
+}
+.atx-panel button.atx-card[aria-pressed="true"] {
+  border-color: var(--interactive-accent, #8aa8df);
+  box-shadow: inset 0 0 0 1px var(--interactive-accent, #8aa8df);
+}
+.atx-card-name {
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 13px;
+}
+.atx-card-pad {
+  display: block;
+  min-height: 75px;
+  max-height: 105px;
+  overflow: hidden;
+  padding: 4px 5px 32px;
+  line-height: 1.8;
+  font-size: 17px;
+}
+.atx-card-desc {
+  font-size: 10px;
+  line-height: 1.5;
+  margin-top: auto;
+  color: var(--text-muted, #9aacbf);
+}
+.atx-empty {
+  font-size: 13px;
+  color: var(--text-muted, #a9b9cd);
+  text-align: center;
+  padding: 16px;
+}
+.atx-note {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-muted, #a0b0c6);
+  margin: 19px 0 14px;
+}
+.atx-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 15px;
+  border-top: 1px solid var(--background-modifier-border, #3b4c66);
+}
+.atx-footer-left {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.atx-panel button.atx-button {
+  font: inherit;
+  font-size: 12px;
+  height: auto;
+  white-space: normal;
+  line-height: 1.4;
+  padding: 9px 13px;
+  border: 1px solid var(--background-modifier-border, #485e7c);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-normal, #dae8fa);
+  box-shadow: none;
+  cursor: pointer;
+}
+.atx-panel button.atx-primary {
+  background: var(--interactive-accent, #526db1);
+  border-color: transparent;
+  color: var(--text-on-accent, #fff);
+  font-weight: 600;
+}
+.atx-panel button:focus-visible {
+  outline: 2px solid var(--interactive-accent, #a2bffc);
+  outline-offset: 2px;
+}
+@media (max-width: 760px) {
+  .atx-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .atx-panel {
+    padding: 23px 18px;
+  }
+  .atx-panel h2.atx-title {
+    font-size: 25px;
+  }
+}
+@media (max-width: 430px) {
+  .atx-grid {
+    grid-template-columns: 1fr;
+  }
+  .atx-controls {
+    align-items: stretch;
+  }
+  .atx-panel input.atx-search {
+    width: 100%;
+  }
+  .atx-hero {
+    padding: 20px 17px 45px;
+  }
+}
+.atx-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 4;
+  background: var(--background-primary, #131f30);
+  margin-top: 12px;
+  padding-bottom: 8px;
+}
+/* Only Aurora's native submenu gets scroll bounds; other menus are untouched. */
+.menu:has(.atx-native-entry) {
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  max-width: min(340px, 90vw);
+}
+.atx-native-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 205px;
+  max-width: 280px;
+  white-space: normal;
+}
+.atx-native-label {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.atx-native-pad {
+  display: block;
+  font-size: 13px;
+  line-height: 1.6;
+  max-height: 31px;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0 4px 3px;
+}
+.atx-native-pad > span {
+  max-width: 245px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* 1.2: native submenu shell is bounded; only its inner list scrolls. */
+.menu:has(.atx-compact) {
+  max-height: none;
+  overflow: visible;
+  max-width: min(340px, 94vw);
+}
+.menu-item.atx-compact-shell {
+  padding: 0;
+  background: transparent !important;
+  cursor: default;
+}
+.atx-compact-shell > .menu-item-title {
+  padding: 0;
+  white-space: normal;
+  overflow: visible;
+}
+.atx-compact {
+  width: min(310px, 85vw);
+  min-width: 220px;
+  color: var(--text-normal);
+  font: 13px/1.5 var(--font-interface, system-ui, sans-serif);
+  white-space: normal;
+}
+.atx-compact-head {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+.atx-compact-title {
+  font-size: 11px;
+  font-weight: 650;
+  margin: 0 0 7px;
+  color: var(--text-muted);
+}
+.atx-compact input.atx-compact-search {
+  box-sizing: border-box;
+  width: 100%;
+  height: 31px;
+  margin: 0;
+  border-radius: 6px;
+  font: 12px system-ui;
+}
+.atx-compact-scroll {
+  height: min(420px, 50vh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  overflow-anchor: none;
+  scroll-behavior: auto;
+  scrollbar-gutter: stable;
+  padding: 4px 3px;
+}
+.atx-compact button.atx-compact-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  padding: 8px 10px;
+  text-align: left;
+  white-space: normal;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.atx-compact button.atx-compact-row:hover,
+.atx-compact button.atx-compact-row:focus-visible {
+  background: var(--background-modifier-hover);
+  outline: none;
+}
+.atx-compact-row[hidden],
+.atx-compact-empty[hidden] {
+  display: none !important;
+}
+.atx-compact-name {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.atx-compact-pad {
+  font-size: 13px;
+  line-height: 1.6;
+  max-height: 31px;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0 3px 3px;
+}
+.atx-compact-pad > span {
+  max-width: 245px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.atx-compact-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 7px 8px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+.atx-compact button.atx-compact-action {
+  height: auto;
+  font: 11px/1.4 system-ui;
+  border: 0;
+  box-shadow: none;
+  padding: 6px 7px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.atx-compact button.atx-compact-action:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+.atx-compact-empty {
+  padding: 18px 10px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+      :root {
+        color-scheme: dark;
+        --background-primary: #151421;
+        --background-secondary: #201e30;
+        --text-normal: #eeecf8;
+        --text-muted: #b8b2cc;
+        --interactive-accent: #a28ce8;
+        --background-modifier-border: #3c3654;
+        --font-interface: system-ui;
+        --radius-m: 12px;
+        --radius-s: 6px;
+      }
+      body {
+        margin: 0;
+        padding: 32px;
+        font: 16px/1.6 system-ui;
+        background: var(--background-primary);
+        color: var(--text-normal);
+      }
+      body.light {
+        color-scheme: light;
+        --background-primary: #fcfaff;
+        --background-secondary: #f1ecf8;
+        --text-normal: #292237;
+        --text-muted: #655771;
+        --background-modifier-border: #d9cfe6;
+      }
+      main {
+        max-width: 1150px;
+        margin: auto;
+      }
+      header {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      h1 {
+        font-size: 24px;
+        margin-right: auto;
+      }
+      input,
+      select,
+      button,
+      textarea {
+        font: inherit;
+        color: inherit;
+        background: var(--background-secondary);
+        border: 1px solid var(--background-modifier-border);
+        border-radius: 8px;
+        padding: 8px;
+      }
+      textarea {
+        box-sizing: border-box;
+        width: 100%;
+        height: 85px;
+        margin: 15px 0;
+      }
+      button {
+        cursor: pointer;
+      }
+      .atx-panel {
+        padding: 12px;
+      }
+      .atx-card {
+        min-width: 0;
+      }
+      #output {
+        display: block;
+        white-space: pre-wrap;
+        padding: 16px;
+        overflow-wrap: anywhere;
+        border: 1px solid var(--background-modifier-border);
+        border-radius: 12px;
+      }
+      footer {
+        color: var(--text-muted);
+        font-size: 13px;
+        margin-top: 24px;
+      }
+      @media (max-width: 650px) {
+        body {
+          padding: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body class="theme-dark">
+    <main>
+      <header>
+        <h1>Aurora Text <small>1.5.0 · public beta</small></h1>
+        <label
+          >Language
+          <select id="language">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+          </select></label
+        ><button id="theme" type="button">Light / dark</button>
+      </header>
+      <p>
+        Local preview of the actual plugin palette. Edit the sample, hover a
+        preset, then apply to see the generated Markdown. This page does not
+        edit your vault.
+      </p>
+      <label for="text">Your sample text</label
+      ><textarea id="text">Let your words glow · Пусть слова сияют</textarea>
+      <div id="palette"></div>
+      <output id="output" aria-live="polite"
+        >Select a preset, then Apply.</output
+      >
+      <footer>
+        Original SVG wing assets and CSS included. No requests, external fonts
+        or analytics. Browser preview does not test Obsidian integration.
+      </footer>
+    </main>
+    <script>
+      // Russian strings are stable lookup keys, never CSS class names.
+const AuroraI18n = (() => {
+  const english = {
+    Все: "All",
+    Пиковые: "Peak",
+    Плашки: "Background",
+    "Внутри букв": "Inside letters",
+    "Боевая форма": "Battle form",
+    Буквенные: "Per letter",
+    "Одежда для твоих слов": "Dress your words in light",
+    "Наведи или выбери стиль. Предпросмотр показывает твой текст; заметка изменится только после «Применить».":
+      "Hover or select a style to preview your text. Your note changes only when you apply it.",
+    "Найти: Luna, Tw, внутри букв…": "Search: silver, Luna, inside letters…",
+    "Найти стиль": "Find a style",
+    "Группы стилей": "Style groups",
+    "Ничего не найдено. Попробуй другое имя.": "No results. Try another name.",
+    "Совет: выделяй слова и короткие фразы без Markdown-разметки. Вид тегов в редакторе зависит от режима Obsidian.":
+      "Select plain words or short phrases. HTML tags may be visible in the editor, depending on the editing mode.",
+    Отмена: "Cancel",
+    "Снять оформление": "Remove style",
+    Применить: "Apply",
+    "Выразительное имя": "Emphasize name",
+    "Без движения": "Still",
+    "Компактная плашка": "Compact background",
+    Медленнее: "Slower",
+    "Прозрачные пряди": "Subtle strands",
+    "Короткие пряди": "Short strands",
+    "Хаотично менять буквы": "Chaotic letter changes",
+    "Применить · ": "Apply · ",
+    "Цвет пульса ": "Pulse color ",
+    "Новый характер букв": "Reshuffle letters",
+    "Aurora · Стили текста": "Aurora · Text styles",
+    "Найти стиль…": "Find a style…",
+    "Поиск стиля": "Search styles",
+    "Стили — прокрутка колёсиком": "Styles — scroll with the wheel",
+    "Ничего не найдено": "No results",
+    "Большая палитра…": "Full palette…",
+    "Оформить выделенный текст · большая палитра":
+      "Style selected text: full palette",
+    "Снять оформление Aurora": "Remove Aurora style",
+    "Поставь курсор внутри оформленного текста.":
+      "Place the cursor inside styled text.",
+    "Пока поддерживается одно выделение за раз.":
+      "Select one text range at a time.",
+    "Aurora · Выбрать стиль": "Aurora · Choose a style",
+    "Выбор стиля по правой кнопке": "Context menu picker",
+    "Изменение действует сразу, без перезапуска. В подменю стиль применяется щелчком по строке.":
+      "Changes take effect immediately. Click a compact menu row to apply its style.",
+    "Компактный столбец справа": "Compact submenu",
+    "Большая палитра с предпросмотром": "Full preview palette",
+    "Анимация при наведении в подменю": "Animate hovered menu sample",
+    "Движется только образец под мышью, остальные неподвижны.":
+      "Only the sample under your pointer animates. Other rows remain still.",
+    "42 стиля, в том числе 9 пиковых. Список листается колёсиком, а не движением мыши. Большая палитра остаётся доступна внизу подменю и через Ctrl+P. В узком окне Obsidian может раскрыть подменю влево, чтобы оно поместилось.":
+      "42 styles, including 9 peak presets. Scroll the list with the wheel. Open the full palette from the submenu footer or command palette. Obsidian may position the submenu on the left in narrow windows.",
+    "Солнечное сияние": "Sunlit glow",
+    "Фиолетовая магия": "Violet magic",
+    "Схлопывание света": "Collapsing light",
+    "Тёмное ядро и огненный диск": "A dark core and a fiery disk",
+    "Радужный перелив": "Flowing rainbow",
+    "Розовые лепестки": "Pink petals",
+    "Ночная дымка и звёзды": "Night mist and stars",
+    "Закат и искры": "Sunset and sparks",
+    "Перламутровые грани": "Pearlescent facets",
+    "Радужный след и молния": "Rainbow trails and lightning",
+    "Розовый праздник": "A pink celebration",
+    "Медовый свет": "Honey light",
+    "Непослушная геометрия": "Unruly geometry",
+    "Сине-серебряная энергия": "Blue and silver energy",
+    "Розово-голубые кристаллы": "Pink and blue crystals",
+    "Обсидиан и изумруд": "Obsidian and emerald",
+    "Tw · Боевая форма": "Tw · Battle form",
+    "Корона и длинные пряди": "A crown and flowing strands",
+    "Лунный поток внутри букв": "Moonlight flowing through letters",
+    "Пламя внутри букв": "Flame inside letters",
+    "Магические дуги внутри букв": "Magical arcs inside letters",
+    "Белое золото": "White Gold",
+    "Белые буквы, золотые края и тонкие нити":
+      "White letters with golden edges and fine threads",
+    Нежность: "Tenderness",
+    "Ещё мягче: кремово-розовый свет и лепестки":
+      "Soft cream and pink light with petals",
+    Скорость: "Speed",
+    "Радужный след и короткая мелкая дрожь":
+      "Rainbow trails with a subtle rapid tremble",
+    "Северное сияние": "Borealis",
+    "Зелёно-лиловые световые ленты": "Green and lilac ribbons of light",
+    "Жидкое серебро": "Liquid Silver",
+    "Металлический перелив внутри букв":
+      "Metallic light flowing through letters",
+    "Розовый кварц": "Rose Quartz",
+    "Мягкий розовый кристалл с гранями": "Soft pink crystal facets",
+    Глубина: "Deep Ocean",
+    "Холодное течение и светящийся планктон":
+      "Cool currents and glowing plankton",
+    "Звёздный шёлк": "Star Silk",
+    "Плавные небесные нити внутри букв":
+      "Flowing celestial threads inside letters",
+    "Тлеющие чернила": "Ember Ink",
+    "Медные чернила и золотые прожилки": "Copper ink and golden veins",
+    Голограмма: "Hologram",
+    "Бирюзовая проекция с мягким сканированием":
+      "A turquoise projection and a gentle scan",
+    "Лесной свет": "Mosslight",
+    "Мох, тёплая зелень и маленькие светлячки":
+      "Moss, warm green light and tiny fireflies",
+    "Tw · Суверен": "Tw · Sovereign",
+    "ПИК · броня, корона и серебряные потоки":
+      "PEAK · Armor, a crown and silver streams",
+    "Celestia · Зенит": "Celestia · Zenith",
+    "ПИК · солнечная печать и золотое оперение":
+      "PEAK · A solar seal and golden plumage",
+    "Luna · Астрал": "Luna · Astral",
+    "ПИК · карта созвездий и лунная орбита":
+      "PEAK · A constellation map and a lunar orbit",
+    "Fluttershy · Эдем": "Fluttershy · Eden",
+    "ПИК · ботаническая лента и маленькая бабочка":
+      "PEAK · A botanical ribbon and a tiny butterfly",
+    "TON 618 · Горизонт событий": "TON 618 · Event Horizon",
+    "ПИК · тёмная апертура и янтарные орбиты":
+      "PEAK · A dark aperture and amber orbits",
+    "Nightmare Moon · Затмение": "Nightmare Moon · Eclipse",
+    "ПИК · серебристый свет и звёзды внутри букв":
+      "PEAK · Silver light and stars inside letters",
+    "Daybreaker · Сверхновая": "Daybreaker · Nova",
+    "ПИК · огненные кольца и прожилки внутри букв":
+      "PEAK · Fiery rings and veins inside letters",
+    "Midnight Sparkle · Разлом": "Midnight Sparkle · Rift",
+    "ПИК · кристаллические трещины и магические дуги внутри букв":
+      "PEAK · Crystal cracks and magical arcs inside letters",
+    Пульсация: "Pulse",
+    "Одна волна слева направо по контурам букв, свой цвет":
+      "A single left-to-right outline wave in your chosen color",
+    "Больной?": "Sick?",
+    "Каждая буква со своим искажением и характером":
+      "Each letter has its own distortion and character",
+    "Флаттершай · Крылья нежности": "Fluttershy · Wings of Tenderness",
+    "ПИК · розовый перелив внутри букв и жёлтые перьевые крылья":
+      "PEAK · Flowing pink letters and yellow feathered wings",
+    "Выделение находится в блоке кода.":
+      "The selection is inside a fenced code block.",
+    "В свойствах заметки стили текста не применяются.":
+      "Text styles cannot be applied inside note properties.",
+    "Выделение находится внутри кода.": "The selection is inside inline code.",
+    "Выдели сами слова без Markdown-разметки, ссылок и кода.":
+      "Select plain words without Markdown, links or code.",
+    "Некорректный диапазон выделения.": "Invalid selection range.",
+    "Сначала выдели слова в заметке. В готовом стиле достаточно поставить курсор внутрь текста.":
+      "Select some words first. To change an existing style, place the cursor inside it.",
+    "Выделение пересекает готовый стиль. Выдели его целиком или поставь курсор внутри.":
+      "The selection overlaps an existing style. Select the entire span or place the cursor inside it.",
+    "Выдели непустой текст.": "Select some non-empty text.",
+    "Выдели текст без HTML-тегов.": "Select text without HTML tags.",
+    "Текст находится внутри другого span. Сначала выйди из него.":
+      "This text is inside another span. Move outside that span first.",
+    "Заметка изменилась, пока открыта палитра. Выдели текст заново.":
+      "The note changed while the picker was open. Select the text again.",
+    "Язык интерфейса": "Interface language",
+    "Изменение языка действует для новых меню. Команды обновятся после перезапуска плагина.":
+      "New menus use the selected language immediately. Reload the plugin to update command names.",
+    Автоматически: "Automatic",
+  };
+  let language = "en";
+  function setLanguage(value) {
+    const detected =
+      typeof navigator !== "undefined" ? navigator.language : "en";
+    language =
+      value === "ru" || (value === "auto" && /^ru\b/i.test(detected))
+        ? "ru"
+        : "en";
+  }
+  function t(value) {
+    return language === "ru" ? value : (english[value] ?? value);
+  }
+  return {
+    t,
+    setLanguage,
+    get language() {
+      return language;
+    },
+  };
+})();
+const atxTranslate = (value) => AuroraI18n.t(value);
+
+"use strict";
+const AuroraTextCore = (() => {
+  const styles = [
+    ["celestia", "Celestia", "Солнечное сияние", "Плашки", ["Celestia"]],
+    ["twilight", "Twilight", "Фиолетовая магия", "Плашки", ["Twilight"]],
+    ["collapse", "Collapse", "Схлопывание света", "Плашки", ["Collapse"]],
+    ["ton618", "TON 618", "Тёмное ядро и огненный диск", "Плашки", ["TON618"]],
+    ["rainbow", "Rainbow", "Радужный перелив", "Плашки", ["Rainbow"]],
+    ["fluttershy", "Fluttershy", "Розовые лепестки", "Плашки", ["Fluttershy"]],
+    ["luna", "Luna", "Ночная дымка и звёзды", "Плашки", ["Luna"]],
+    ["sunset", "Sunset Shimmer", "Закат и искры", "Плашки", ["SunsetShimmer"]],
+    ["rarity", "Rarity", "Перламутровые грани", "Плашки", ["Rarity"]],
+    [
+      "rainbowdash",
+      "Rainbow Dash",
+      "Радужный след и молния",
+      "Плашки",
+      ["RainbowDash"],
+    ],
+    ["pinkie", "Pinkie Pie", "Розовый праздник", "Плашки", ["PinkiePie"]],
+    ["applejack", "Applejack", "Медовый свет", "Плашки", ["Applejack"]],
+    ["discord", "Discord", "Непослушная геометрия", "Плашки", ["Discord"]],
+    ["tw", "Tw", "Сине-серебряная энергия", "Плашки", ["Tw"]],
+    [
+      "flurry",
+      "Flurry Heart",
+      "Розово-голубые кристаллы",
+      "Плашки",
+      ["FlurryHeart"],
+    ],
+    ["sombra", "Sombra", "Обсидиан и изумруд", "Плашки", ["Sombra"]],
+    [
+      "tw-awakened",
+      "Tw · Боевая форма",
+      "Корона и длинные пряди",
+      "Боевая форма",
+      ["TwAwakened"],
+    ],
+    [
+      "nightmare",
+      "Nightmare Moon",
+      "Лунный поток внутри букв",
+      "Внутри букв",
+      ["Trio", "NightmareMoon"],
+    ],
+    [
+      "daybreaker",
+      "Daybreaker",
+      "Пламя внутри букв",
+      "Внутри букв",
+      ["Trio", "Daybreaker"],
+    ],
+    [
+      "midnight",
+      "Midnight Sparkle",
+      "Магические дуги внутри букв",
+      "Внутри букв",
+      ["Trio", "MidnightSparkle"],
+    ],
+    [
+      "whitegold",
+      "Белое золото",
+      "Белые буквы, золотые края и тонкие нити",
+      "Внутри букв",
+      ["WhiteGold"],
+    ],
+    [
+      "tenderness",
+      "Нежность",
+      "Ещё мягче: кремово-розовый свет и лепестки",
+      "Плашки",
+      ["Tenderness"],
+    ],
+    [
+      "speed",
+      "Скорость",
+      "Радужный след и короткая мелкая дрожь",
+      "Плашки",
+      ["Speed"],
+    ],
+    [
+      "borealis",
+      "Северное сияние",
+      "Зелёно-лиловые световые ленты",
+      "Плашки",
+      ["AtxBorealis"],
+    ],
+    [
+      "mercury",
+      "Жидкое серебро",
+      "Металлический перелив внутри букв",
+      "Внутри букв",
+      ["AtxMercury"],
+    ],
+    [
+      "rosequartz",
+      "Розовый кварц",
+      "Мягкий розовый кристалл с гранями",
+      "Плашки",
+      ["AtxRoseQuartz"],
+    ],
+    [
+      "deepocean",
+      "Глубина",
+      "Холодное течение и светящийся планктон",
+      "Плашки",
+      ["AtxDeepOcean"],
+    ],
+    [
+      "starsilk",
+      "Звёздный шёлк",
+      "Плавные небесные нити внутри букв",
+      "Внутри букв",
+      ["AtxStarSilk"],
+    ],
+    [
+      "emberink",
+      "Тлеющие чернила",
+      "Медные чернила и золотые прожилки",
+      "Внутри букв",
+      ["AtxEmberInk"],
+    ],
+    [
+      "hologram",
+      "Голограмма",
+      "Бирюзовая проекция с мягким сканированием",
+      "Плашки",
+      ["AtxHologram"],
+    ],
+    [
+      "mosslight",
+      "Лесной свет",
+      "Мох, тёплая зелень и маленькие светлячки",
+      "Плашки",
+      ["AtxMosslight"],
+    ],
+    [
+      "peak-tw",
+      "Tw · Суверен",
+      "ПИК · броня, корона и серебряные потоки",
+      "Пиковые",
+      ["Peak", "TwSovereign"],
+    ],
+    [
+      "peak-celestia",
+      "Celestia · Зенит",
+      "ПИК · солнечная печать и золотое оперение",
+      "Пиковые",
+      ["Peak", "CelestiaZenith"],
+    ],
+    [
+      "peak-luna",
+      "Luna · Астрал",
+      "ПИК · карта созвездий и лунная орбита",
+      "Пиковые",
+      ["Peak", "LunaAstral"],
+    ],
+    [
+      "peak-fluttershy",
+      "Fluttershy · Эдем",
+      "ПИК · ботаническая лента и маленькая бабочка",
+      "Пиковые",
+      ["Peak", "FluttershyEden"],
+    ],
+    [
+      "peak-ton",
+      "TON 618 · Горизонт событий",
+      "ПИК · тёмная апертура и янтарные орбиты",
+      "Пиковые",
+      ["Peak", "TONEventHorizon"],
+    ],
+    [
+      "peak-nightmare",
+      "Nightmare Moon · Затмение",
+      "ПИК · серебристый свет и звёзды внутри букв",
+      "Пиковые",
+      ["Peak", "NightmareEclipse"],
+    ],
+    [
+      "peak-daybreaker",
+      "Daybreaker · Сверхновая",
+      "ПИК · огненные кольца и прожилки внутри букв",
+      "Пиковые",
+      ["Peak", "DaybreakerNova"],
+    ],
+    [
+      "peak-midnight",
+      "Midnight Sparkle · Разлом",
+      "ПИК · кристаллические трещины и магические дуги внутри букв",
+      "Пиковые",
+      ["Peak", "MidnightRift"],
+    ],
+    [
+      "pulse",
+      "Пульсация",
+      "Одна волна слева направо по контурам букв, свой цвет",
+      "Буквенные",
+      ["AtxPulse"],
+    ],
+    [
+      "sick",
+      "Больной?",
+      "Каждая буква со своим искажением и характером",
+      "Буквенные",
+      ["AtxSick"],
+    ],
+    [
+      "peak-flutter-wings",
+      "Флаттершай · Крылья нежности",
+      "ПИК · розовый перелив внутри букв и жёлтые перьевые крылья",
+      "Пиковые",
+      ["Peak", "FluttershyWings"],
+    ],
+  ].map(([id, name, desc, group, classes]) => ({
+    id,
+    get name() {
+      return atxTranslate(name);
+    },
+    get desc() {
+      return atxTranslate(desc);
+    },
+    group,
+    classes,
+    ink:
+      group === "Внутри букв" ||
+      [
+        "peak-nightmare",
+        "peak-daybreaker",
+        "peak-midnight",
+        "peak-flutter-wings",
+      ].includes(id),
+  }));
+  const byId = (id) => styles.find((s) => s.id === id) || styles[0];
+  const escape = (s) =>
+    s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  function decode(s) {
+    return s.replace(/&(amp|lt|gt|quot|apos|#\d+|#x[\da-f]+);/gi, (m, k) => {
+      const known = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'" };
+      if (known[k.toLowerCase()]) return known[k.toLowerCase()];
+      const n = k.toLowerCase().startsWith("#x")
+        ? parseInt(k.slice(2), 16)
+        : parseInt(k.slice(1), 10);
+      return Number.isInteger(n) &&
+        n > 0 &&
+        n <= 0x10ffff &&
+        !(n >= 0xd800 && n <= 0xdfff)
+        ? String.fromCodePoint(n)
+        : m;
+    });
+  }
+  const modifiers = [
+    "name",
+    "still",
+    "plain",
+    "slow",
+    "quiet",
+    "short",
+    "chaos",
+  ];
+  function optionsFor(style) {
+    return [
+      "name",
+      "still",
+      ...(style.group === "Плашки" || (style.group === "Пиковые" && !style.ink)
+        ? ["plain"]
+        : []),
+      ...(style.ink || style.group === "Пиковые" ? ["slow"] : []),
+      ...(["tw-awakened", "peak-tw"].includes(style.id)
+        ? ["quiet", "short"]
+        : []),
+      ...(style.id === "sick" ? ["chaos"] : []),
+    ];
+  }
+  function classNames(style, mods = {}) {
+    return [...style.classes, ...optionsFor(style).filter((k) => mods[k])].join(
+      " ",
+    );
+  }
+  function identify(classes) {
+    const list = classes.trim().split(/\s+/);
+    if (
+      list.some(
+        (c) =>
+          !modifiers.includes(c) &&
+          !styles.some((s) => s.classes.includes(c)) &&
+          c !== "TOB618",
+      )
+    )
+      return null;
+    const canonical = list.map((c) => (c === "TOB618" ? "TON618" : c));
+    const matches = styles.filter((s) =>
+      s.classes.every((c) => canonical.includes(c)),
+    );
+    if (matches.length !== 1) return null;
+    const style = matches[0];
+    if (
+      canonical.some(
+        (c) => !style.classes.includes(c) && !modifiers.includes(c),
+      )
+    )
+      return null;
+    return {
+      style,
+      mods: Object.fromEntries(
+        modifiers.map((k) => [k, canonical.includes(k)]),
+      ),
+    };
+  }
+  const color = (value) =>
+    /^#[0-9a-f]{6}$/i.test(value || "") ? value.toLowerCase() : "#d7abff";
+  const seed = (value) =>
+    /^\d{1,10}$/.test(String(value ?? "")) &&
+    Number(value) > 0 &&
+    Number(value) <= 4294967295
+      ? Number(value)
+      : 0;
+  const newSeed = () => {
+    const a = new Uint32Array(1);
+    if (globalThis.crypto?.getRandomValues) {
+      globalThis.crypto.getRandomValues(a);
+      return a[0] || 1;
+    }
+    return Math.floor(Math.random() * 4294967294) + 1;
+  };
+  function wrappers(full) {
+    const out = [];
+    const re =
+      /<span\s+class=(?:"([^"]+)"|'([^']+)')((?:\s+data-aurora-(?:color|seed)=(?:"[^"]*"|'[^']*'))*)\s*>([^<>\r\n]*)<\/span>/g;
+    let m;
+    while ((m = re.exec(full))) {
+      const found = identify(m[1] || m[2]);
+      if (!found) continue;
+      const attrs = m[3],
+        cm = attrs.match(/data-aurora-color=["']([^"']+)["']/),
+        sm = attrs.match(/data-aurora-seed=["']([^"']+)["']/);
+      if (found.style.id === "pulse") found.mods.color = color(cm?.[1]);
+      if (found.style.id === "sick") found.mods.seed = seed(sm?.[1]) || 1977;
+      const opening = m[0].indexOf(">") + 1;
+      out.push({
+        ...found,
+        start: m.index,
+        end: re.lastIndex,
+        innerStart: m.index + opening,
+        innerEnd: re.lastIndex - 7,
+        raw: m[0],
+        plain: decode(m[4]),
+      });
+    }
+    return out;
+  }
+  function guarded(full, start, end) {
+    const prefix = full.slice(0, start);
+    let fence = null;
+    for (const line of prefix.split("\n")) {
+      const m = line.match(/^\s{0,3}(`{3,}|~{3,})/);
+      if (!m) continue;
+      if (!fence) fence = m[1];
+      else if (m[1][0] === fence[0] && m[1].length >= fence.length)
+        fence = null;
+    }
+    if (fence) return atxTranslate("Выделение находится в блоке кода.");
+    if (full.startsWith("---\n")) {
+      const close = full.indexOf("\n---", 4);
+      if (close < 0 || start < close + 4)
+        return atxTranslate("В свойствах заметки стили текста не применяются.");
+    }
+    const lineStart = full.lastIndexOf("\n", start - 1) + 1;
+    const before = full.slice(lineStart, start);
+    if ((before.match(/`/g) || []).length % 2)
+      return atxTranslate("Выделение находится внутри кода.");
+    const selected = full.slice(start, end);
+    if (/[`]|\[\[|\]\]|!\[|\]\(|^\s*#{1,6}\s|^\s*[-*+]\s/m.test(selected))
+      return atxTranslate(
+        "Выдели сами слова без Markdown-разметки, ссылок и кода.",
+      );
+    return null;
+  }
+  function target(full, start, end) {
+    if (start > end) [start, end] = [end, start];
+    if (start < 0 || end > full.length)
+      throw Error(atxTranslate("Некорректный диапазон выделения."));
+    const own = wrappers(full);
+    const exact = own.find(
+      (w) =>
+        (start === w.start && end === w.end) ||
+        (start >= w.innerStart && end <= w.innerEnd),
+    );
+    if (exact) {
+      const error = guarded(full, exact.start, exact.end);
+      if (error) throw Error(error);
+      return { ...exact, full, original: exact.raw, existing: true };
+    }
+    if (start === end)
+      throw Error(
+        atxTranslate(
+          "Сначала выдели слова в заметке. В готовом стиле достаточно поставить курсор внутрь текста.",
+        ),
+      );
+    if (own.some((w) => start < w.end && end > w.start))
+      throw Error(
+        atxTranslate(
+          "Выделение пересекает готовый стиль. Выдели его целиком или поставь курсор внутри.",
+        ),
+      );
+    const error = guarded(full, start, end);
+    if (error) throw Error(error);
+    const original = full.slice(start, end);
+    if (!original.trim()) throw Error(atxTranslate("Выдели непустой текст."));
+    if (/<\/?[a-z][^>]*>/i.test(original))
+      throw Error(atxTranslate("Выдели текст без HTML-тегов."));
+    // Protect foreign HTML containers and avoid nesting inside manually authored spans.
+    const prefix = full.slice(0, start);
+    if (
+      (prefix.match(/<span\b/gi) || []).length >
+      (prefix.match(/<\/span>/gi) || []).length
+    )
+      throw Error(
+        atxTranslate(
+          "Текст находится внутри другого span. Сначала выйди из него.",
+        ),
+      );
+    return {
+      start,
+      end,
+      full,
+      original,
+      plain: original,
+      existing: false,
+      style: null,
+      mods: {},
+    };
+  }
+  function build(t, style, mods = {}) {
+    const cls = classNames(style, mods);
+    let attrs = "";
+    if (style.id === "pulse")
+      attrs = ` data-aurora-color="${color(mods.color || t.mods?.color)}"`;
+    if (style.id === "sick")
+      attrs = ` data-aurora-seed="${seed(mods.seed || t.mods?.seed) || newSeed()}"`;
+    return t.plain
+      .split(/(\r?\n)/)
+      .map((line) =>
+        /^\r?\n$/.test(line) || !line.trim()
+          ? line
+          : `<span class="${cls}"${attrs}>${escape(line)}</span>`,
+      )
+      .join("");
+  }
+  function replace(editor, t, replacement) {
+    if (editor.getValue() !== t.full)
+      throw Error(
+        atxTranslate(
+          "Заметка изменилась, пока открыта палитра. Выдели текст заново.",
+        ),
+      );
+    const from = editor.offsetToPos(t.start),
+      to = editor.offsetToPos(t.end);
+    editor.replaceRange(replacement, from, to, "+aurora-text");
+    editor.setSelection(from, editor.offsetToPos(t.start + replacement.length));
+  }
+  return {
+    styles,
+    byId,
+    escape,
+    decode,
+    optionsFor,
+    classNames,
+    identify,
+    wrappers,
+    target,
+    build,
+    replace,
+    color,
+    seed,
+    newSeed,
+  };
+})();
+
+/* Per-letter DOM exists only in rendered views and previews, never in the note. */
+const AuroraLetters = (() => {
+  const cache = new WeakMap();
+  function graphemes(text) {
+    return typeof Intl.Segmenter === "function"
+      ? [
+          ...new Intl.Segmenter(undefined, { granularity: "grapheme" }).segment(
+            text,
+          ),
+        ].map((x) => x.segment)
+      : Array.from(text);
+  }
+  function random(seed) {
+    let x = seed >>> 0 || 1;
+    return () => {
+      x ^= x << 13;
+      x ^= x >>> 17;
+      x ^= x << 5;
+      return (x >>> 0) / 4294967296;
+    };
+  }
+  function plan(text, seed, chaos = false) {
+    const rng = random(seed);
+    return graphemes(text).map((char) => {
+      const kind = Math.floor(rng() * 8);
+      return {
+        char,
+        kind,
+        animated: chaos || kind === 7,
+        x:
+          kind === 0
+            ? 0.9
+            : kind === 1
+              ? 1.12
+              : kind === 2
+                ? 1.38
+                : kind === 3
+                  ? 0.7
+                  : kind === 4
+                    ? -1
+                    : 1,
+        y:
+          kind === 0
+            ? 1.34
+            : kind === 1
+              ? 0.65
+              : kind === 2
+                ? 0.92
+                : kind === 3
+                  ? 1.14
+                  : 1,
+        angle: kind === 5 ? 180 : kind === 6 ? (rng() - 0.5) * 25 : 0,
+        duration: 5 + rng() * 6,
+        delay: -(rng() * 7),
+        otherX: (rng() < 0.25 ? -1 : 1) * (0.8 + rng() * 0.45),
+        otherY: 0.65 + rng() * 0.7,
+      };
+    });
+  }
+  function restore(el) {
+    const saved = cache.get(el);
+    if (!saved) return;
+    el.textContent = saved.text;
+    el.removeAttribute("data-atx-enhanced");
+    cache.delete(el);
+  }
+  function enhance(el, style, mods = {}) {
+    if (!["pulse", "sick"].includes(style.id)) return;
+    const saved = cache.get(el),
+      text =
+        saved && el.getAttribute("data-atx-enhanced")
+          ? saved.text
+          : el.textContent;
+    restore(el);
+    el.textContent = text;
+    const chars = graphemes(text);
+    if (chars.length > 180) return;
+    const doc = el.ownerDocument;
+    const entries = plan(
+      text,
+      AuroraTextCore.seed(mods.seed) || 1977,
+      !!mods.chaos,
+    );
+    const cycle = (chars.length * 0.075 + 2.5).toFixed(3) + "s";
+    el.style.setProperty("--atx-pulse-color", AuroraTextCore.color(mods.color));
+    el.style.setProperty("--atx-pulse-cycle", cycle);
+    el.replaceChildren();
+    let word = null,
+      index = 0;
+    for (const item of entries) {
+      if (/\s/.test(item.char)) {
+        el.appendChild(doc.createTextNode(item.char));
+        word = null;
+        continue;
+      }
+      if (!word) {
+        word = doc.createElement("span");
+        word.className = "atx-letter-word";
+        el.appendChild(word);
+      }
+      const letter = doc.createElement("span");
+      letter.className = "atx-letter";
+      letter.textContent = item.char;
+      if (style.id === "pulse") {
+        const outline = doc.createElement("span");
+        outline.className = "atx-pulse-outline";
+        outline.textContent = item.char;
+        outline.setAttribute("aria-hidden", "true");
+        outline.style.setProperty(
+          "--atx-letter-delay",
+          (index * 0.075).toFixed(3) + "s",
+        );
+        letter.appendChild(outline);
+      } else {
+        letter.style.setProperty("--as-x", String(item.x));
+        letter.style.setProperty("--as-y", String(item.y));
+        letter.style.setProperty("--as-angle", item.angle + "deg");
+        letter.style.setProperty("--as-other-x", String(item.otherX));
+        letter.style.setProperty("--as-other-y", String(item.otherY));
+        letter.style.setProperty(
+          "--as-duration",
+          item.duration.toFixed(2) + "s",
+        );
+        letter.style.setProperty("--as-delay", item.delay.toFixed(2) + "s");
+        if (item.animated) letter.className += " atx-letter-morph";
+      }
+      word.appendChild(letter);
+      index++;
+    }
+    el.setAttribute("data-atx-enhanced", style.id);
+    cache.set(el, { text });
+  }
+  function reading(el) {
+    const id = el.classList.contains("AtxPulse")
+      ? "pulse"
+      : el.classList.contains("AtxSick")
+        ? "sick"
+        : null;
+    if (!id) return;
+    const classes = AuroraTextCore.identify(el.className);
+    enhance(el, AuroraTextCore.byId(id), {
+      ...classes?.mods,
+      color: el.getAttribute("data-aurora-color"),
+      seed: el.getAttribute("data-aurora-seed"),
+    });
+  }
+  function paint(el, style, mods, text) {
+    restore(el);
+    el.className = AuroraTextCore.classNames(style, mods);
+    el.textContent = text;
+    enhance(el, style, mods);
+  }
+  return { graphemes, plan, enhance, restore, reading, paint };
+})();
+
+const AuroraTextUI = (() => {
+  function create(
+    container,
+    {
+      text,
+      initial = "celestia",
+      mods = {},
+      onApply,
+      onRemove,
+      onCancel,
+      defaultColor,
+    },
+  ) {
+    const C = AuroraTextCore,
+      doc = container.ownerDocument;
+    const root = doc.createElement("div");
+    root.className = "atx-panel";
+    container.appendChild(root);
+    const listeners = [];
+    const events = (el, name, fn) => {
+      el.addEventListener(name, fn);
+      listeners.push(() => el.removeEventListener(name, fn));
+    };
+    const make = (tag, cls, value, parent = root) => {
+      const el = doc.createElement(tag);
+      if (cls) el.className = cls;
+      if (value !== undefined) el.textContent = value;
+      parent.appendChild(el);
+      return el;
+    };
+    let active = C.byId(initial),
+      group = "Все",
+      query = "",
+      state = { color: C.color(defaultColor), seed: C.newSeed(), ...mods };
+    const shownText = text.length > 160 ? text.slice(0, 157) + "…" : text;
+    const mainText = text.length > 1200 ? text.slice(0, 1197) + "…" : text;
+    make("div", "atx-eyebrow", "AURORA / TEXT STUDIO");
+    make("h2", "atx-title", atxTranslate("Одежда для твоих слов"));
+    make(
+      "p",
+      "atx-lead",
+      atxTranslate(
+        "Наведи или выбери стиль. Предпросмотр показывает твой текст; заметка изменится только после «Применить».",
+      ),
+    );
+    const hero = make("div", "atx-hero"),
+      badge = make("div", "atx-badge", "", hero),
+      sample = make("span", "", "", hero),
+      caption = make("p", "atx-caption", "", hero);
+    const controls = make("div", "atx-controls");
+    const search = make("input", "atx-search", "", controls);
+    search.type = "search";
+    search.placeholder = atxTranslate("Найти: Luna, Tw, внутри букв…");
+    search.setAttribute("aria-label", atxTranslate("Найти стиль"));
+    const tabs = make("div", "atx-tabs", undefined, controls);
+    tabs.setAttribute("role", "group");
+    tabs.setAttribute("aria-label", atxTranslate("Группы стилей"));
+    const tabButtons = [];
+    for (const name of [
+      "Все",
+      "Пиковые",
+      "Плашки",
+      "Внутри букв",
+      "Боевая форма",
+      "Буквенные",
+    ]) {
+      const b = make("button", "atx-tab", atxTranslate(name), tabs);
+      b.type = "button";
+      b.setAttribute("aria-pressed", name === group ? "true" : "false");
+      tabButtons.push([b, name]);
+      events(b, "click", () => {
+        group = name;
+        for (const [button, label] of tabButtons)
+          button.setAttribute("aria-pressed", String(label === group));
+        renderGrid();
+      });
+    }
+    const flags = make("div", "atx-flags");
+    const grid = make("div", "atx-grid");
+    const empty = make(
+      "p",
+      "atx-empty",
+      atxTranslate("Ничего не найдено. Попробуй другое имя."),
+    );
+    const warning = make(
+      "p",
+      "atx-note",
+      atxTranslate(
+        "Совет: выделяй слова и короткие фразы без Markdown-разметки. Вид тегов в редакторе зависит от режима Obsidian.",
+      ),
+    );
+    const footer = make("div", "atx-footer");
+    const left = make("div", "atx-footer-left", undefined, footer);
+    const cancel = make("button", "atx-button", atxTranslate("Отмена"), left);
+    cancel.type = "button";
+    events(cancel, "click", () => onCancel?.());
+    if (onRemove) {
+      const remove = make(
+        "button",
+        "atx-button atx-remove",
+        atxTranslate("Снять оформление"),
+        left,
+      );
+      remove.type = "button";
+      events(remove, "click", () => onRemove());
+    }
+    const apply = make(
+      "button",
+      "atx-button atx-primary",
+      atxTranslate("Применить"),
+      footer,
+    );
+    apply.type = "button";
+    events(apply, "click", () => onApply(active, { ...state }));
+    const names = {
+      name: atxTranslate("Выразительное имя"),
+      still: atxTranslate("Без движения"),
+      plain: atxTranslate("Компактная плашка"),
+      slow: atxTranslate("Медленнее"),
+      quiet: atxTranslate("Прозрачные пряди"),
+      short: atxTranslate("Короткие пряди"),
+      chaos: atxTranslate("Хаотично менять буквы"),
+    };
+    let gridOff = [],
+      flagsOff = [];
+    function activePreview() {
+      badge.textContent = active.name + " / " + atxTranslate(active.group);
+      AuroraLetters.paint(sample, active, state, mainText);
+      caption.textContent = active.desc;
+      apply.textContent = atxTranslate("Применить · ") + active.name;
+      for (const button of grid.children)
+        button.setAttribute(
+          "aria-pressed",
+          String(button.dataset.styleId === active.id),
+        );
+    }
+    function renderFlags() {
+      for (const off of flagsOff) off();
+      flagsOff = [];
+      flags.replaceChildren();
+      if (active.id === "pulse") {
+        const label = make(
+          "label",
+          "atx-flag",
+          atxTranslate("Цвет пульса "),
+          flags,
+        );
+        const colorInput = make("input", "atx-color", undefined, label);
+        colorInput.type = "color";
+        colorInput.value = C.color(state.color);
+        const colorChange = () => {
+          state.color = C.color(colorInput.value);
+          activePreview();
+        };
+        colorInput.addEventListener("input", colorChange);
+        flagsOff.push(() =>
+          colorInput.removeEventListener("input", colorChange),
+        );
+      }
+      if (active.id === "sick") {
+        const reroll = make(
+          "button",
+          "atx-tab",
+          atxTranslate("Новый характер букв"),
+          flags,
+        );
+        reroll.type = "button";
+        const roll = () => {
+          state.seed = C.newSeed();
+          activePreview();
+        };
+        reroll.addEventListener("click", roll);
+        flagsOff.push(() => reroll.removeEventListener("click", roll));
+      }
+      for (const key of C.optionsFor(active)) {
+        const label = make("label", "atx-flag", undefined, flags);
+        const checkbox = make("input", "", undefined, label);
+        checkbox.type = "checkbox";
+        checkbox.checked = !!state[key];
+        make("span", "", names[key], label);
+        const change = () => {
+          state[key] = checkbox.checked;
+          activePreview();
+        };
+        checkbox.addEventListener("change", change);
+        flagsOff.push(() => checkbox.removeEventListener("change", change));
+      }
+    }
+    function select(style) {
+      active = style;
+      activePreview();
+      renderFlags();
+    }
+    function renderGrid() {
+      for (const off of gridOff) off();
+      gridOff = [];
+      grid.replaceChildren();
+      const list = C.styles.filter(
+        (s) =>
+          (group === "Все" ||
+            group === s.group ||
+            (group === "Внутри букв" && s.ink) ||
+            (group === "Плашки" && s.group === "Пиковые" && !s.ink)) &&
+          `${s.name} ${s.desc} ${s.group}`.toLocaleLowerCase().includes(query),
+      );
+      empty.hidden = list.length > 0;
+      for (const style of list) {
+        const b = make("button", "atx-card", undefined, grid);
+        b.type = "button";
+        b.dataset.styleId = style.id;
+        b.setAttribute("aria-pressed", String(style.id === active.id));
+        b.setAttribute("aria-label", style.name + " — " + style.desc);
+        make("span", "atx-card-name", style.name, b);
+        const pad = make("span", "atx-card-pad", undefined, b);
+        const mini = make("span", "", undefined, pad);
+        AuroraLetters.paint(mini, style, { ...state, still: true }, shownText);
+        make("span", "atx-card-desc", style.desc, b);
+        const enter = () => {
+          select(style);
+          AuroraLetters.paint(
+            mini,
+            style,
+            { ...state, still: !!state.still },
+            shownText,
+          );
+        };
+        const leave = () => {
+          AuroraLetters.paint(
+            mini,
+            style,
+            { ...state, still: true },
+            shownText,
+          );
+        };
+        for (const [event, fn] of [
+          ["pointerenter", enter],
+          ["pointerleave", leave],
+          ["focus", () => select(style)],
+          ["blur", leave],
+          ["click", () => select(style)],
+        ]) {
+          b.addEventListener(event, fn);
+          gridOff.push(() => b.removeEventListener(event, fn));
+        }
+      }
+    }
+    events(search, "input", () => {
+      query = search.value.trim().toLocaleLowerCase();
+      renderGrid();
+    });
+    activePreview();
+    renderFlags();
+    renderGrid();
+    return {
+      root,
+      focus: () => search.focus(),
+      destroy() {
+        for (const off of [...listeners, ...gridOff, ...flagsOff]) off();
+        root.remove();
+      },
+    };
+  }
+  return { create };
+})();
+
+/* A single native submenu item hosts a bounded, ordinary scroll container.
+   Individual style rows are DOM buttons, not Obsidian MenuItems: pointer
+   movement cannot trigger the native menu's row-following scroll behaviour. */
+const AuroraCompact = (() => {
+  function create(
+    container,
+    {
+      text,
+      mods = {},
+      animate = true,
+      defaultColor,
+      onApply,
+      onPalette,
+      onRemove,
+    },
+  ) {
+    const C = AuroraTextCore,
+      doc = container.ownerDocument;
+    mods = { color: C.color(defaultColor), seed: C.newSeed(), ...mods };
+    const root = doc.createElement("div");
+    root.className = "atx-compact";
+    container.appendChild(root);
+    const offs = [];
+    const make = (tag, cls, text, parent = root) => {
+      const el = doc.createElement(tag);
+      el.className = cls;
+      if (text !== undefined) el.textContent = text;
+      parent.appendChild(el);
+      return el;
+    };
+    const listen = (el, type, fn, opts) => {
+      el.addEventListener(type, fn, opts);
+      offs.push(() => el.removeEventListener(type, fn, opts));
+    };
+    const head = make("div", "atx-compact-head");
+    make(
+      "div",
+      "atx-compact-title",
+      atxTranslate("Aurora · Стили текста"),
+      head,
+    );
+    const search = make("input", "atx-compact-search", undefined, head);
+    search.type = "search";
+    search.placeholder = atxTranslate("Найти стиль…");
+    search.setAttribute("aria-label", atxTranslate("Поиск стиля"));
+    const colorLabel = make(
+      "label",
+      "atx-compact-color",
+      atxTranslate("Цвет пульса "),
+      head,
+    );
+    const colorInput = make("input", "atx-color", undefined, colorLabel);
+    colorInput.type = "color";
+    colorInput.value = C.color(mods.color);
+    listen(colorInput, "input", () => {
+      mods.color = C.color(colorInput.value);
+      for (const row of rows)
+        if (row.style.id === "pulse")
+          AuroraLetters.paint(
+            row.sample,
+            row.style,
+            { ...mods, still: true },
+            row.text,
+          );
+    });
+    const list = make("div", "atx-compact-scroll");
+    list.setAttribute("role", "group");
+    list.setAttribute(
+      "aria-label",
+      atxTranslate("Стили — прокрутка колёсиком"),
+    );
+    const empty = make(
+      "div",
+      "atx-compact-empty",
+      atxTranslate("Ничего не найдено"),
+      list,
+    );
+    empty.hidden = true;
+    let rows = [];
+    for (const style of C.styles) {
+      const button = make("button", "atx-compact-row", undefined, list);
+      button.type = "button";
+      button.setAttribute("aria-label", style.name + " — " + style.desc);
+      make("span", "atx-compact-name", style.name, button);
+      const pad = make("span", "atx-compact-pad", undefined, button);
+      const sample = make("span", "", undefined, pad);
+      const sampleText = text.length > 42 ? text.slice(0, 39) + "…" : text;
+      AuroraLetters.paint(sample, style, { ...mods, still: true }, sampleText);
+      sample.setAttribute("aria-hidden", "true");
+      listen(button, "click", (e) => {
+        e.stopPropagation();
+        onApply(style, { ...mods });
+      });
+      if (animate && !mods.still) {
+        listen(button, "pointerenter", () => {
+          AuroraLetters.paint(sample, style, mods, sampleText);
+        });
+        listen(button, "pointerleave", () => {
+          AuroraLetters.paint(
+            sample,
+            style,
+            { ...mods, still: true },
+            sampleText,
+          );
+        });
+        listen(button, "blur", () => {
+          AuroraLetters.paint(
+            sample,
+            style,
+            { ...mods, still: true },
+            sampleText,
+          );
+        });
+      }
+      rows.push({ button, style, sample, text: sampleText });
+    }
+    const foot = make("div", "atx-compact-foot");
+    const big = make(
+      "button",
+      "atx-compact-action",
+      atxTranslate("Большая палитра…"),
+      foot,
+    );
+    big.type = "button";
+    listen(big, "click", (e) => {
+      e.stopPropagation();
+      onPalette();
+    });
+    if (onRemove) {
+      const remove = make(
+        "button",
+        "atx-compact-action",
+        atxTranslate("Снять оформление"),
+        foot,
+      );
+      remove.type = "button";
+      listen(remove, "click", (e) => {
+        e.stopPropagation();
+        onRemove();
+      });
+    }
+    listen(search, "input", () => {
+      const query = search.value.trim().toLocaleLowerCase();
+      let visible = 0;
+      for (const row of rows) {
+        row.button.hidden =
+          !`${row.style.name} ${row.style.desc} ${row.style.group}`
+            .toLocaleLowerCase()
+            .includes(query);
+        if (!row.button.hidden) visible++;
+        AuroraLetters.paint(
+          row.sample,
+          row.style,
+          { ...mods, still: true },
+          row.text,
+        );
+      }
+      empty.hidden = visible > 0;
+      list.scrollTop = 0;
+    });
+    // Neither handler changes scrollTop. Wheel default action stays intact.
+    const stop = (e) => e.stopPropagation();
+    for (const type of ["click", "mousedown", "mouseup", "pointerdown"])
+      listen(root, type, stop);
+    listen(root, "pointermove", stop);
+    listen(root, "mousemove", stop);
+    listen(root, "wheel", stop, { passive: true });
+    listen(root, "keydown", (e) => {
+      if (e.key !== "Escape") e.stopPropagation();
+    });
+    return {
+      root,
+      list,
+      rows,
+      destroy() {
+        for (const off of offs) off();
+        root.remove();
+        rows = [];
+      },
+    };
+  }
+  return { create };
+})();
+
+      const holder = document.getElementById("palette"),
+        input = document.getElementById("text");
+      let ui;
+      function render() {
+        ui?.destroy();
+        AuroraI18n.setLanguage(document.getElementById("language").value);
+        ui = AuroraTextUI.create(holder, {
+          text: input.value || "Aurora",
+          onApply(style, mods) {
+            const text = input.value || "Aurora";
+            document.getElementById("output").textContent =
+              AuroraTextCore.build(
+                AuroraTextCore.target(text, 0, text.length),
+                style,
+                mods,
+              );
+          },
+          onCancel() {
+            document.getElementById("output").textContent =
+              "Preview only — nothing saved.";
+          },
+        });
+      }
+      input.addEventListener("input", render);
+      document.getElementById("language").addEventListener("change", render);
+      document.getElementById("theme").addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        document.body.classList.toggle("theme-dark");
+      });
+      render();
+    </script>
+  </body>
+</html>
